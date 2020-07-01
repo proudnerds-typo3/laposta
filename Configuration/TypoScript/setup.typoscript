@@ -1,0 +1,26 @@
+plugin {
+    tx_laposta_subscribe {
+        view {
+            templateRootPaths.0 = EXT:laposta/Resources/Private/Templates/
+            templateRootPaths.1 = {$plugin.tx_laposta.view.templateRootPath}
+            #        partialRootPaths.0 = EXT:laposta/Resources/Private/Partials/
+            #        partialRootPaths.1 = {$plugin.tx_laposta.view.partialRootPath}
+            layoutRootPaths.0 = EXT:laposta/Resources/Private/Layouts/
+            layoutRootPaths.1 = {$plugin.tx_laposta.view.layoutRootPath}
+        }
+
+        persistence {
+            # Uncomment when not using record PID in plugin settings
+            #storagePid = {$plugin.tx_laposta3_subscribe.persistence.storagePid}
+            #recursive = 1
+        }
+
+        settings {
+            apiUrl = {$plugin.tx_laposta.settings.apiUrl}
+            apiKey = {$plugin.tx_laposta.settings.apiKey}
+            customFieldNameStartsWith = {$plugin.tx_laposta.settings.customFieldNameStartsWith}
+        }
+    }
+
+    tx_laposta_unsubscribe < plugin.tx_laposta_subscribe
+}

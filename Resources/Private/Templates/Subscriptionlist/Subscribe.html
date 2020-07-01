@@ -1,0 +1,41 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+<f:layout name="Default"/>
+<f:section name="content">
+    <f:form action="rest" name="subscription" class="laposta-form laposta-subscribe">
+        <f:if condition="{lists}">
+            <f:then>
+                <f:if condition="{messages}">
+                    <f:for each="{messages}" as="message">
+                        <div class="alert alert-info" role="alert"><f:format.html>{message}</f:format.html></div>
+                    </f:for>
+                </f:if>
+
+                <div class="form-group">
+                    <f:for each="{lists}" as="list" iteration="iterator">
+                        <div class="form-check">
+                            <f:form.checkbox name="list_{iterator.cycle}" value="{list.uid}" class="form-check-input"/>
+                            <label class="form-check-label">{list.listLabel}</label>
+                        </div>
+                    </f:for>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-check-label">{f:translate(key:'tx_laposta.email')}</label>
+                    <f:form.textfield name="email" type="email" class="form-control" required="1"/>
+                    <label class="form-check-label">{f:translate(key:'tx_laposta.firstname')}</label>
+                    <f:form.textfield name="customField.voornaam" class="form-control"/>
+                    <label class="form-check-label">{f:translate(key:'tx_laposta.lastname')}</label>
+                    <f:form.textfield name="customField.achternaam" class="form-control"/>
+                </div>
+
+                <f:form.hidden name="numberOfLists" value="{f:count(subject: lists)}"/>
+                <f:form.hidden name="crudAction" value="create"/>
+                <f:form.submit value="{f:translate(key:'tx_laposta.subscribe')}" class="btn btn-primary"/>
+            </f:then>
+            <f:else>
+                <h3>No lists found!</h3>
+            </f:else>
+        </f:if>
+    </f:form>
+</f:section>
+</html>

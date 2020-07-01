@@ -1,0 +1,23 @@
+{
+    "name": "proudnerds/laposta",
+    "type": "typo3-cms-extension",
+    "description": "Subscribe to and unsubscribe from Laposta newsletters",
+    "authors": [
+        {
+            "name": "Jacco van der Post",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "typo3/cms-core": "^10.4"
+    },
+    "autoload": {
+        "psr-4": {
+            "Proudnerds\\Laposta\\": "Classes"
+        }
+    },
+    "replace": {
+        "proudnerds/laposta": "self.version",
+        "typo3-ter/laposta": "self.version"
+    }
+}

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+	<file source-language="en" datatype="plaintext" original="EXT:laposta/Resources/Private/Language/backend" date="2020-06-26T13:40:13Z" product-name="laposta">
+		<header/>
+		<body>
+			<trans-unit id="tx_laposta.subscription_settings" resname="tx_laposta.subscription_settings">
+				<source>Subscription settings</source>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>

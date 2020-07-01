@@ -1,0 +1,25 @@
+plugin {
+    tx_laposta {
+        # These constants are used for both the subscribe and unsubscribe plugins
+
+        view {
+            # cat=plugin.tx_laposta_subscribe/file; type=string; label=Path to template root (FE)
+            templateRootPath = EXT:laposta/Resources/Private/Templates/
+            # cat=plugin.tx_laposta_subscribe/file; type=string; label=Path to template partials (FE)
+            partialRootPath = EXT:laposta/Resources/Private/Partials/
+            # cat=plugin.tx_laposta_subscribe/file; type=string; label=Path to template layouts (FE)
+            layoutRootPath = EXT:laposta/Resources/Private/Layouts/
+        }
+
+        persistence {
+            # cat=plugin.tx_laposta2_subscribe//a; type=string; label=Default storage PID
+            storagePid =
+        }
+
+        settings {
+            apiUrl = https://api.laposta.nl/v2/member
+            apiKey =
+            customFieldNameStartsWith = customField.
+        }
+    }
+}

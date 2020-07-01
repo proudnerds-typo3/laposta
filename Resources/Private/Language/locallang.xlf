@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+	<file source-language="en" datatype="plaintext" original="EXT:laposta/Resources/Private/Language/locallang" date="2020-06-26T13:40:13Z" product-name="laposta">
+		<header/>
+		<body>
+			<trans-unit id="tx_laposta.email" resname="tx_laposta.email">
+				<source>Email</source>
+			</trans-unit>
+			<trans-unit id="tx_laposta.firstname" resname="tx_laposta.firstname">
+				<source>First name</source>
+			</trans-unit>
+			<trans-unit id="tx_laposta.lastname" resname="tx_laposta.lastname">
+				<source>Last name</source>
+			</trans-unit>
+			<trans-unit id="tx_laposta.subscribe" resname="tx_laposta.subscribe">
+				<source>Subscribe</source>
+			</trans-unit>
+			<trans-unit id="tx_laposta.unsubscribe" resname="tx_laposta.unsubscribe">
+				<source>Unsubcribe</source>
+			</trans-unit>
+			<trans-unit id="tx_laposta.warning.email" resname="tx_laposta.warning.email">
+				<source>Please provide your email</source>
+			</trans-unit>
+			<trans-unit id="tx_laposta.warning.lists" resname="tx_laposta.warning.lists">
+				<source>Please choose at least one newsletter</source>
+			</trans-unit>
+			<trans-unit id="tx_laposta.warning.network" resname="tx_laposta.warning.network">
+				<source>Something went wrong, please inform us</source>
+			</trans-unit>
+			<trans-unit id="tx_laposta.warning.emailregistered" resname="tx_laposta.warning.emailregistered">
+				<source>Your email address is already registered for</source>
+			</trans-unit>
+			<trans-unit id="tx_laposta.message.subscribed" resname="tx_laposta.message.subscribed">
+				<source>Thanks, you have been subscribed to our newsletter</source>
+			</trans-unit>
+			<trans-unit id="tx_laposta.message.doubleOptinSubscribed" resname="tx_laposta.message.doubleOptinSubscribed">
+				<source>Thanks, we have received your registration for our newsletter</source>
+			</trans-unit>
+			<trans-unit id="tx_laposta.message.emailVerification" resname="tx_laposta.message.emailVerification">
+				<source>Please check your email to verify your subscription</source>
+			</trans-unit>
+			<trans-unit id="tx_laposta.warning.invalidMember1" resname="tx_laposta.warning.invalidMember1">
+				<source>A subscription for newsletter</source>
+			</trans-unit>
+			<trans-unit id="tx_laposta.warning.invalidMember2" resname="tx_laposta.warning.invalidMember2">
+				<source>could not be found for email address</source>
+			</trans-unit>
+			<trans-unit id="tx_laposta.message.unsubscribed" resname="tx_laposta.message.unsubscribed">
+				<source>You have been unsubscribed from our newsletter</source>
+			</trans-unit>
+		</body>
+	</file>
+</xliff>
