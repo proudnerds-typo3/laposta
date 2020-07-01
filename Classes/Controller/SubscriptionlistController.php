@@ -9,7 +9,6 @@ use Psr\Log\LoggerAwareTrait;
 use TYPO3\CMS\Core\Log\LogLevel;
 use TYPO3\CMS\Core\Http\RequestFactory;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 
 /***
@@ -122,7 +121,7 @@ class SubscriptionlistController extends \TYPO3\CMS\Extbase\Mvc\Controller\Actio
         $sourceUrl = $this->request->getRequestUri();
 
         // Get all the custom fields, these fields the customer can create in Laposta administration
-        // You can add any fields in the template, just put customFieldLabel before each fieldname
+        // You can add any fields in the template, just put customFieldLabel. before each fieldname
         $argumentKeys = array_keys($arguments);
         $customFieldKeys = [];
         $customFields = [];
