@@ -8,7 +8,7 @@
 Installation
 ============
 
-Target group: **Administrators**
+Target group: **Administrators / Integrators**
 
 * composer req proudnerds-typo3/laposta
 * include the typoscript template
