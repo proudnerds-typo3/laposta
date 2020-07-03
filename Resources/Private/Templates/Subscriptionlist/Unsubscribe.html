@@ -11,17 +11,25 @@
                 </f:if>
 
                 <div class="form-group">
+                    <div class="assistive">
+                        <label class="form-check-label" for="tx_laposta-important">{f:translate(key:'tx_laposta.honey')}</label>
+                        <f:form.textfield name="laposta.important" class="form-control" id="tx_laposta-important"/>
+                    </div>
+
                     <f:for each="{lists}" as="list" iteration="iterator">
                         <div class="form-check">
-                            <f:form.checkbox name="list_{iterator.cycle}" value="{list.uid}" class="form-check-input"/>
-                            <label class="form-check-label">{list.listLabel}</label>
+                            <f:form.checkbox name="list_{iterator.cycle}" value="{list.uid}" id="list_{iterator.cycle}" class="form-check-input"/>
+                            <label class="form-check-label" for="list_{iterator.cycle}">{list.listLabel}</label>
                         </div>
                     </f:for>
                 </div>
 
                 <div class="form-group">
-                    <label class="form-check-label">{f:translate(key:'tx_laposta.email')}</label>
-                    <f:form.textfield name="email" type="email" class="form-control" required="1"/>
+                    <label class="form-check-label" for="tx_laposta-email">
+                        {f:translate(key:'tx_laposta.email')}
+                        <abbr class="icon required" title="{f:translate(key:'tx_laposta.required')}">*</abbr>
+                    </label>
+                    <f:form.textfield name="email" type="email" class="form-control" id="tx_laposta-email" additionalAttributes="{aria-required: 'true'}" required="1" />
                 </div>
 
                 <f:form.hidden name="numberOfLists" value="{f:count(subject: lists)}"/>

@@ -12,6 +12,12 @@
 			<trans-unit id="tx_laposta.lastname" resname="tx_laposta.lastname">
 				<target>Achternaam</target>
 			</trans-unit>
+			<trans-unit id="tx_laposta.required" resname="tx_laposta.required">
+				<source>Verplicht veld</source>
+			</trans-unit>
+			<trans-unit id="tx_laposta.honey" resname="tx_laposta.honey">
+				<source>Belangrijk</source>
+			</trans-unit>
 			<trans-unit id="tx_laposta.subscribe" resname="tx_laposta.subscribe">
 				<target>Aanmelden</target>
 			</trans-unit>

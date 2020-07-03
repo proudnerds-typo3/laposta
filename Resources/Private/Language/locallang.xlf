@@ -12,6 +12,12 @@
 			<trans-unit id="tx_laposta.lastname" resname="tx_laposta.lastname">
 				<source>Last name</source>
 			</trans-unit>
+			<trans-unit id="tx_laposta.required" resname="tx_laposta.required">
+				<source>Required field</source>
+			</trans-unit>
+			<trans-unit id="tx_laposta.honey" resname="tx_laposta.honey">
+				<source>Important</source>
+			</trans-unit>
 			<trans-unit id="tx_laposta.subscribe" resname="tx_laposta.subscribe">
 				<source>Subscribe</source>
 			</trans-unit>

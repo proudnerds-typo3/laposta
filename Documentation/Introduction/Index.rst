@@ -13,7 +13,7 @@ Introduction
 What does it do?
 ================
 
-This extension allows to subscribe and unsubscribe from a single or multiple Laposta newsletters.
+This extension allows to subscribe and unsubribe from a single or multiple Laposta newsletters.
 Laposta is a newsletter service. https://laposta.nl/
 
 Thanks to

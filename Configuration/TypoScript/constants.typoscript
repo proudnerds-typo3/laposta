@@ -20,6 +20,8 @@ plugin {
             apiUrl = https://api.laposta.nl/v2/member
             apiKey =
             customFieldNameStartsWith = customField.
+            enableLog = 1
+            logHoneyTrap = 1
         }
     }
 }

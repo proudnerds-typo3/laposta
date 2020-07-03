@@ -19,8 +19,22 @@ plugin {
             apiUrl = {$plugin.tx_laposta.settings.apiUrl}
             apiKey = {$plugin.tx_laposta.settings.apiKey}
             customFieldNameStartsWith = {$plugin.tx_laposta.settings.customFieldNameStartsWith}
+            enableLog = {$plugin.tx_laposta.settings.enableLog}
+
+            # this stores spam attempts in the log
+            logHoneyTrap = {$plugin.tx_laposta.settings.logHoneyTrap}
         }
     }
 
     tx_laposta_unsubscribe < plugin.tx_laposta_subscribe
+}
+
+page {
+    cssInline {
+        // Hide honey pot field
+        1593773091141 = TEXT
+        #1593773091141.value = .assistive {left: -9999px; top: -9999px; position: absolute; z-index: -1;}
+
+        1593773091141.value = .assistive {left: auto; top: auto; position: relative; z-index: 10;}
+    }
 }
