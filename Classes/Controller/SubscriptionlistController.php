@@ -9,7 +9,6 @@ use Psr\Log\LoggerAwareTrait;
 use TYPO3\CMS\Core\Log\LogLevel;
 use TYPO3\CMS\Core\Http\RequestFactory;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Utility\DebuggerUtility;
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 
 /***
@@ -70,7 +69,7 @@ class SubscriptionlistController extends \TYPO3\CMS\Extbase\Mvc\Controller\Actio
             $listUids = explode(',', $this->settings['lists']);
 
             foreach ($listUids as $listUid) {
-                $lists[] = $this->subscriptionlistRepository->findByUid(intval($listUid));
+                $lists[] = $this->subscriptionlistRepository->findByUid((int)($listUid));
             }
         }
 
@@ -94,7 +93,7 @@ class SubscriptionlistController extends \TYPO3\CMS\Extbase\Mvc\Controller\Actio
             $listUids = explode(',', $this->settings['lists']);
 
             foreach ($listUids as $listUid) {
-                $lists[] = $this->subscriptionlistRepository->findByUid(intval($listUid));
+                $lists[] = $this->subscriptionlistRepository->findByUid((int)($listUid));
             }
         }
 
@@ -150,7 +149,7 @@ class SubscriptionlistController extends \TYPO3\CMS\Extbase\Mvc\Controller\Actio
             $email = htmlspecialchars($arguments['email']);
 
             if ($email) {
-                $numberOfLists = intval($arguments['numberOfLists']);
+                $numberOfLists = (int)($arguments['numberOfLists']);
 
                 for ($subscriptionNumber = 1; $subscriptionNumber <= $numberOfLists; $subscriptionNumber++) {
                     $listItem = 'list_' . $subscriptionNumber;
@@ -288,7 +287,7 @@ class SubscriptionlistController extends \TYPO3\CMS\Extbase\Mvc\Controller\Actio
                 $messages[] = LocalizationUtility::translate('tx_laposta.warning.email', 'laposta');
             }
         } else {
-            if ($enableLog && (intval($this->settings['logHoneyTrap']) === 1)) {
+            if ($enableLog && ((int)($this->settings['logHoneyTrap']) === 1)) {
                 $this->logger->log(LogLevel::INFO,
                     'Spam attempt? Honey pot field filled with: ' . htmlspecialchars($arguments['laposta.important']) . '. User ip: ' . $ip . ', source url: ' . $sourceUrl);
             }

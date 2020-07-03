@@ -5,8 +5,6 @@ plugin {
         view {
             # cat=plugin.tx_laposta_subscribe/file; type=string; label=Path to template root (FE)
             templateRootPath = EXT:laposta/Resources/Private/Templates/
-            # cat=plugin.tx_laposta_subscribe/file; type=string; label=Path to template partials (FE)
-            partialRootPath = EXT:laposta/Resources/Private/Partials/
             # cat=plugin.tx_laposta_subscribe/file; type=string; label=Path to template layouts (FE)
             layoutRootPath = EXT:laposta/Resources/Private/Layouts/
         }
