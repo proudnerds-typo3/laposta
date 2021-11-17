@@ -1,6 +1,6 @@
 <?php
 
-$EM_CONF[$_EXTKEY] = [
+$EM_CONF['laposta'] = [
     'title' => 'Laposta',
     'description' => 'Subscribe to and unsubscribe from Laposta newsletters',
     'category' => 'plugin',
@@ -9,10 +9,10 @@ $EM_CONF[$_EXTKEY] = [
     'state' => 'stable',
     'createDirs' => '',
     'clearCacheOnLoad' => 0,
-    'version' => '1.0.0',
+    'version' => '10.4.0',
     'constraints' => [
         'depends' => [
-            'typo3' => '10.4.0-10.4.99',
+            'typo3' => '10.4.21-10.4.99',
         ],
         'conflicts' => [],
         'suggests' => [],

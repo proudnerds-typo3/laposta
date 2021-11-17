@@ -11,4 +11,5 @@
 ChangeLog
 =========
 
-* 1.0.0 Initial release
+* 1.0.0 Initial release on Github
+* 10.4.0 Release in TER
