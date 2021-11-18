@@ -4,8 +4,10 @@ namespace Proudnerds\Laposta\Controller;
 
 use Proudnerds\Laposta\Domain\Model\Subscriptionlist;
 use Proudnerds\Laposta\Domain\Repository\SubscriptionlistRepository;
+use Psr\Http\Message\ResponseInterface;
 use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerAwareTrait;
+use TYPO3\CMS\Core\Http\NormalizedParams;
 use TYPO3\CMS\Core\Log\LogLevel;
 use TYPO3\CMS\Core\Http\RequestFactory;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
@@ -61,7 +63,7 @@ class SubscriptionlistController extends \TYPO3\CMS\Extbase\Mvc\Controller\Actio
      * @param array|null $messages
      * @return void
      */
-    public function subscribeAction(array $messages = null)
+    public function subscribeAction(array $messages = null): ResponseInterface
     {
         $lists = null;
 
@@ -77,6 +79,8 @@ class SubscriptionlistController extends \TYPO3\CMS\Extbase\Mvc\Controller\Actio
             'lists' => $lists,
             'messages' => $messages
         ]);
+
+        return $this->htmlResponse();
     }
 
     /**
@@ -85,7 +89,7 @@ class SubscriptionlistController extends \TYPO3\CMS\Extbase\Mvc\Controller\Actio
      * @param array|null $messages
      * @return void
      */
-    public function unsubscribeAction(array $messages = null)
+    public function unsubscribeAction(array $messages = null): ResponseInterface
     {
         $lists = null;
 
@@ -101,6 +105,8 @@ class SubscriptionlistController extends \TYPO3\CMS\Extbase\Mvc\Controller\Actio
             'lists' => $lists,
             'messages' => $messages
         ]);
+
+        return $this->htmlResponse();
     }
 
     /**
@@ -111,13 +117,19 @@ class SubscriptionlistController extends \TYPO3\CMS\Extbase\Mvc\Controller\Actio
      * @return void
      * @throws \TYPO3\CMS\Extbase\Mvc\Exception\StopActionException
      */
-    public function restAction()
+    public function restAction(): ResponseInterface
     {
         $messages = [];
         $arguments = $this->request->getArguments();
         $crudAction = htmlspecialchars($arguments['crudAction']);
         $ip = GeneralUtility::getIndpEnv('REMOTE_ADDR');
-        $sourceUrl = $this->request->getRequestUri();
+
+        $request = $GLOBALS['TYPO3_REQUEST'];
+
+        /** @var NormalizedParams $normalizedParams */
+        $normalizedParams = $request->getAttribute('normalizedParams');
+        $sourceUrl = $normalizedParams->getRequestUrl();
+
         $enableLog = false;
         if ($this->settings['enableLog'] === '1') {
             $enableLog = true;
@@ -127,7 +139,6 @@ class SubscriptionlistController extends \TYPO3\CMS\Extbase\Mvc\Controller\Actio
         if (!$arguments['laposta.important']) {
             $customFieldLabel = htmlspecialchars($this->settings['customFieldNameStartsWith']);
             $ip = GeneralUtility::getIndpEnv('REMOTE_ADDR');
-            $sourceUrl = $this->request->getRequestUri();
 
             // Get all the custom fields, these fields the customer can create in Laposta administration
             // You can add any fields in the template, just put customFieldLabel before each fieldname

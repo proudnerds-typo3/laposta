@@ -9,10 +9,10 @@ $EM_CONF['laposta'] = [
     'state' => 'stable',
     'createDirs' => '',
     'clearCacheOnLoad' => 0,
-    'version' => '10.4.0',
+    'version' => '11.5.0',
     'constraints' => [
         'depends' => [
-            'typo3' => '10.4.21-10.4.99',
+            'typo3' => '11.5.3-11.5.99',
         ],
         'conflicts' => [],
         'suggests' => [],

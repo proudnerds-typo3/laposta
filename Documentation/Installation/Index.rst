@@ -10,7 +10,7 @@ Installation
 
 Target group: **Administrators / Integrators**
 
-* composer req proudnerds-typo3/laposta
+* composer req proudnerds/laposta
 * include the typoscript template
 * add to editor backend user groups
 * add the Laposta apiKey in constants settings

@@ -4,25 +4,17 @@ defined('TYPO3_MODE') || die('Access denied.');
 call_user_func(
     function () {
         \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
-            'Proudnerds.Laposta',
+            'Laposta',
             'Subscribe',
-            [
-                'Subscriptionlist' => 'subscribe, rest'
-            ],
-            [
-                'Subscriptionlist' => 'subscribe, rest'
-            ]
+            [\Proudnerds\Laposta\Controller\SubscriptionlistController::class => 'subscribe, rest'],
+            [\Proudnerds\Laposta\Controller\SubscriptionlistController::class => 'subscribe, rest']
         );
 
         \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
-            'Proudnerds.Laposta',
+            'Laposta',
             'Unsubscribe',
-            [
-                'Subscriptionlist' => 'unsubscribe, rest'
-            ],
-            [
-                'Subscriptionlist' => 'unsubscribe, rest'
-            ]
+            [\Proudnerds\Laposta\Controller\SubscriptionlistController::class => 'unsubscribe, rest'],
+            [\Proudnerds\Laposta\Controller\SubscriptionlistController::class => 'unsubscribe, rest']
         );
 
         \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPageTSConfig(
