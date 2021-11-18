@@ -25,22 +25,22 @@
 				<target>Afmelden</target>
 			</trans-unit>
 			<trans-unit id="tx_laposta.warning.email" resname="tx_laposta.warning.email">
-				<target>Voer svp uw e-mail in</target>
+				<target>Voer svp uw e-mailadres in</target>
 			</trans-unit>
 			<trans-unit id="tx_laposta.warning.lists" resname="tx_laposta.warning.lists">
-				<target>Kies tenminste één nieuwsbrief</target>
+				<target>Kies 1 of meerdere nieuwsbrieven</target>
 			</trans-unit>
 			<trans-unit id="tx_laposta.warning.network" resname="tx_laposta.warning.network">
 				<target>Er ging iets mis, informeer ons svp</target>
 			</trans-unit>
 			<trans-unit id="tx_laposta.warning.emailregistered" resname="tx_laposta.warning.emailregistered">
-				<target>U bent al aangemeld met dit e-mail adres voor onze nieuwsbrief</target>
+				<target>U bent al aangemeld met dit e-mailadres voor onze nieuwsbrief</target>
 			</trans-unit>
 			<trans-unit id="tx_laposta.message.subscribed" resname="tx_laposta.message.subscribed">
 				<target>Bedankt voor uw aanmelding voor onze nieuwsbrief</target>
 			</trans-unit>
 			<trans-unit id="tx_laposta.message.doubleOptinSubscribed" resname="tx_laposta.message.doubleOptinSubscribed">
-				<target>Bedankt, we hebben uw aanmelding ontvangen voor onze nieuwsbrief</target>
+				<target>We hebben uw aanmelding  ontvangen en sturen u een e-mail. Bevestig uw aanmelding door op de link in de e-mail te klikken</target>
 			</trans-unit>
 			<trans-unit id="tx_laposta.message.emailVerification" resname="tx_laposta.message.emailVerification">
 				<target>Check svp uw e-mail om uw aanmelding te bevestigen</target>
