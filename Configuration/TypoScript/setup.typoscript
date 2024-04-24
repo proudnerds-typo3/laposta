@@ -1,36 +1,36 @@
 plugin {
-    tx_laposta_subscribe {
-        view {
-            templateRootPaths.0 = EXT:laposta/Resources/Private/Templates/
-            templateRootPaths.1 = {$plugin.tx_laposta.view.templateRootPath}
-            layoutRootPaths.0 = EXT:laposta/Resources/Private/Layouts/
-            layoutRootPaths.1 = {$plugin.tx_laposta.view.layoutRootPath}
-        }
-
-        persistence {
-            # Uncomment when not using record PID in plugin settings
-            #storagePid = {$plugin.tx_laposta3_subscribe.persistence.storagePid}
-            #recursive = 1
-        }
-
-        settings {
-            apiUrl = {$plugin.tx_laposta.settings.apiUrl}
-            apiKey = {$plugin.tx_laposta.settings.apiKey}
-            customFieldNameStartsWith = {$plugin.tx_laposta.settings.customFieldNameStartsWith}
-            enableLog = {$plugin.tx_laposta.settings.enableLog}
-
-            # this stores spam attempts in the log
-            logHoneyTrap = {$plugin.tx_laposta.settings.logHoneyTrap}
-        }
+  tx_laposta_subscribe {
+    view {
+      templateRootPaths.0 = EXT:laposta/Resources/Private/Templates/
+      templateRootPaths.1 = {$plugin.tx_laposta.view.templateRootPath}
+      layoutRootPaths.0 = EXT:laposta/Resources/Private/Layouts/
+      layoutRootPaths.1 = {$plugin.tx_laposta.view.layoutRootPath}
     }
 
-    tx_laposta_unsubscribe < plugin.tx_laposta_subscribe
+    persistence {
+      # Uncomment when not using record PID in plugin settings
+      #storagePid = {$plugin.tx_laposta3_subscribe.persistence.storagePid}
+      #recursive = 1
+    }
+
+    settings {
+      apiUrl = {$plugin.tx_laposta.settings.apiUrl}
+      apiKey = {$plugin.tx_laposta.settings.apiKey}
+      customFieldNameStartsWith = {$plugin.tx_laposta.settings.customFieldNameStartsWith}
+      enableLog = {$plugin.tx_laposta.settings.enableLog}
+
+      # this stores spam attempts in the log
+      logHoneyTrap = {$plugin.tx_laposta.settings.logHoneyTrap}
+    }
+  }
+
+  tx_laposta_unsubscribe < plugin.tx_laposta_subscribe
 }
 
 page {
-    cssInline {
-        // Hide honey pot field
-        1593773091141 = TEXT
-        1593773091141.value = .assistive {left: -9999px; top: -9999px; position: absolute; z-index: -1;}
-    }
+  cssInline {
+    // Hide honey pot field
+    1593773091141 = TEXT
+    1593773091141.value = .assistive {left: -9999px; top: -9999px; position: absolute; z-index: -1;}
+  }
 }

@@ -6,7 +6,9 @@
             <f:then>
                 <f:if condition="{messages}">
                     <f:for each="{messages}" as="message">
-                        <div class="alert alert-info" role="alert"><f:format.html>{message}</f:format.html></div>
+                        <div class="alert alert-info" role="alert">
+                            <f:format.html>{message}</f:format.html>
+                        </div>
                     </f:for>
                 </f:if>
 
@@ -18,7 +20,8 @@
 
                     <f:for each="{lists}" as="list" iteration="iterator">
                         <div class="form-check">
-                            <f:form.checkbox name="list_{iterator.cycle}" value="{list.uid}" id="list_{iterator.cycle}" class="form-check-input"/>
+                            <f:form.checkbox name="list_{iterator.cycle}" value="{list.uid}" id="list_{iterator.cycle}"
+                                             class="form-check-input"/>
                             <label class="form-check-label" for="list_{iterator.cycle}">{list.listLabel}</label>
                             <f:if condition="{list.info}">
                                 <div class="laposta-info">{list.info}</div>
@@ -32,12 +35,15 @@
                         {f:translate(key:'tx_laposta.email')}
                         <abbr class="icon required" title="Verplicht veld">*</abbr>
                     </label>
-                    <f:form.textfield name="email" type="email" class="form-control" id="tx_laposta-email" additionalAttributes="{autocomplete: 'email'}" required="1" />
+                    <f:form.textfield name="email" type="email" class="form-control" id="tx_laposta-email"
+                                      additionalAttributes="{autocomplete: 'email'}" required="1"/>
 
                     <label class="form-check-label" for="tx_laposta-firstname">{f:translate(key:'tx_laposta.firstname')}</label>
-                    <f:form.textfield name="customField.voornaam" class="form-control" id="tx_laposta-firstname" additionalAttributes="{autocomplete: 'given-name'}" />
+                    <f:form.textfield name="customField.voornaam" class="form-control" id="tx_laposta-firstname"
+                                      additionalAttributes="{autocomplete: 'given-name'}"/>
                     <label class="form-check-label" for="tx_laposta-lastname">{f:translate(key:'tx_laposta.lastname')}</label>
-                    <f:form.textfield name="customField.achternaam" class="form-control" id="tx_laposta-lastname" additionalAttributes="{autocomplete: 'family-name'}" />
+                    <f:form.textfield name="customField.achternaam" class="form-control" id="tx_laposta-lastname"
+                                      additionalAttributes="{autocomplete: 'family-name'}"/>
                 </div>
 
                 <f:form.hidden name="numberOfLists" value="{f:count(subject: lists)}"/>

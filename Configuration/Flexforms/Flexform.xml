@@ -11,7 +11,8 @@
                     <settings.lists>
                         <TCEforms>
                             <exclude>1</exclude>
-                            <label>LLL:EXT:laposta/Resources/Private/Language/locallang_db.xlf:tx_laposta_domain_model_subscriptionlist</label>
+                            <label>LLL:EXT:laposta/Resources/Private/Language/locallang_db.xlf:tx_laposta_domain_model_subscriptionlist
+                            </label>
                             <config>
                                 <type>select</type>
                                 <renderType>selectMultipleSideBySide</renderType>

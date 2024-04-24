@@ -1,4 +1,5 @@
 <?php
+
 namespace Proudnerds\Laposta\Domain\Repository;
 
 /***
@@ -11,6 +12,7 @@ namespace Proudnerds\Laposta\Domain\Repository;
  *  (c) 2020 Jacco van der Post <jacco@idexpander.com>
  *
  ***/
+
 /**
  * The repository for Subscriptionlist
  */

@@ -1,5 +1,8 @@
 <?php
+
 namespace Proudnerds\Laposta\Domain\Model;
+
+use TYPO3\CMS\Extbase\Annotation\Validate;
 
 /**
  * Subscriptionlist
@@ -8,18 +11,18 @@ class Subscriptionlist extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
 {
     /**
      * The label of the list to subscribe to
-     * 
+     *
      * @var string
-     * @TYPO3\CMS\Extbase\Annotation\Validate("NotEmpty")
      */
+    #[Validate(['validator' => 'NotEmpty'])]
     protected $listLabel = '';
 
     /**
      * The Laposta id of the list to subscribe to
-     * 
+     *
      * @var string
-     * @TYPO3\CMS\Extbase\Annotation\Validate("NotEmpty")
      */
+    #[Validate(['validator' => 'NotEmpty'])]
     protected $listId = '';
 
     /**
@@ -27,53 +30,53 @@ class Subscriptionlist extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      *
      * @var bool
      */
-    protected $doubleOptIn = '';
+    protected bool $doubleOptIn = false;
 
     /**
      * Additional information on this list
-     * 
+     *
      * @var string
      */
-    protected $info = '';
+    protected string $info = '';
 
     /**
      * Returns the listLabel
-     * 
+     *
      * @return string $listLabel
      */
-    public function getListLabel()
+    public function getListLabel(): string
     {
         return $this->listLabel;
     }
 
     /**
      * Sets the listLabel
-     * 
+     *
      * @param string $listLabel
      * @return void
      */
-    public function setListLabel($listLabel)
+    public function setListLabel(string $listLabel): void
     {
         $this->listLabel = $listLabel;
     }
 
     /**
      * Returns the listId
-     * 
+     *
      * @return string $listId
      */
-    public function getListId()
+    public function getListId(): string
     {
         return $this->listId;
     }
 
     /**
      * Sets the listId
-     * 
+     *
      * @param string $listId
      * @return void
      */
-    public function setListId($listId)
+    public function setListId(string $listId): void
     {
         $this->listId = $listId;
     }
@@ -83,7 +86,7 @@ class Subscriptionlist extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      *
      * @return bool
      */
-    public function getDoubleOptIn()
+    public function getDoubleOptIn(): bool
     {
         return $this->doubleOptIn;
     }
@@ -94,28 +97,28 @@ class Subscriptionlist extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
      * @param bool $doubleOptIn
      * @return void
      */
-    public function setDoubleOptIn($doubleOptIn)
+    public function setDoubleOptIn(bool $doubleOptIn): void
     {
         $this->doubleOptIn = $doubleOptIn;
     }
 
     /**
      * Returns the info
-     * 
+     *
      * @return string $info
      */
-    public function getInfo()
+    public function getInfo(): string
     {
         return $this->info;
     }
 
     /**
      * Sets the info
-     * 
+     *
      * @param string $info
      * @return void
      */
-    public function setInfo($info)
+    public function setInfo(string $info): void
     {
         $this->info = $info;
     }

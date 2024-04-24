@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <xliff version="1.0">
-	<file target-language="nl" datatype="plaintext" original="EXT:laposta/Retargets/Private/Language/locallang" date="2020-06-26T13:40:13Z" product-name="laposta">
+	<file target-language="nl" datatype="plaintext" original="EXT:laposta/Retargets/Private/Language/locallang" date="2020-06-26T13:40:13Z"
+		  product-name="laposta">
 		<header/>
 		<body>
 			<trans-unit id="tx_laposta.email" resname="tx_laposta.email">
@@ -40,7 +41,9 @@
 				<target>Bedankt voor uw aanmelding voor onze nieuwsbrief</target>
 			</trans-unit>
 			<trans-unit id="tx_laposta.message.doubleOptinSubscribed" resname="tx_laposta.message.doubleOptinSubscribed">
-				<target>We hebben uw aanmelding ontvangen en sturen u een e-mail. Bevestig uw aanmelding door op de link in de e-mail te klikken</target>
+				<target>We hebben uw aanmelding ontvangen en sturen u een e-mail. Bevestig uw aanmelding door op de link in de e-mail te
+					klikken
+				</target>
 			</trans-unit>
 			<trans-unit id="tx_laposta.message.emailVerification" resname="tx_laposta.message.emailVerification">
 				<target>Check svp uw e-mail om uw aanmelding te bevestigen</target>

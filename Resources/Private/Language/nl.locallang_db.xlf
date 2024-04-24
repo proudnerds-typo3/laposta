@@ -1,38 +1,40 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <xliff version="1.0">
-    <file source-language="en" target-language="nl" datatype="plaintext" date="2020-06-26T13:40:13Z" product-name="laposta">
-        <header/>
-        <body>
-            <trans-unit id="tx_laposta_domain_model_subscriptionlist" resname="tx_laposta_domain_model_subscriptionlist">
-                <target>Laposta nieuwbrief lijst</target>
-            </trans-unit>
-            <trans-unit id="tx_laposta_domain_model_subscription" resname="tx_laposta_domain_model_subscription">
-                <target>Aanmelding</target>
-            </trans-unit>
-            <trans-unit id="tx_laposta_subscribe.name" resname="tx_laposta_subscribe.name">
-                <target>Laposta aanmelden</target>
-            </trans-unit>
-            <trans-unit id="tx_laposta_unsubscribe.name" resname="tx_laposta_unsubscribe.name">
-                <target>Laposta afmelden</target>
-            </trans-unit>
-            <trans-unit id="tx_laposta_subscribe.description" resname="tx_laposta_subscribe.description">
-                <target>Aanmeldformulier voor één of meerdere Laposta nieuwsbrieven</target>
-            </trans-unit>
-            <trans-unit id="tx_laposta_unsubscribe.description" resname="tx_laposta_unsubscribe.description">
-                <target>Afmeldformulier voor één of meerdere Laposta nieuwsbrieven</target>
-            </trans-unit>
-            <trans-unit id="tx_laposta_domain_model_subscriptionlist.list_label" resname="tx_laposta_domain_model_subscriptionlist.list_label">
-                <target>Lijst label</target>
-            </trans-unit>
-            <trans-unit id="tx_laposta_domain_model_subscriptionlist.list_id" resname="tx_laposta_domain_model_subscriptionlist.list_id">
-                <target>Laposta lijst id</target>
-            </trans-unit>
-            <trans-unit id="tx_laposta_domain_model_subscriptionlist.double_opt_in" resname="tx_laposta_domain_model_subscriptionlist.double_opt_in">
-                <target>Na aanmelding dient de inschrijving per e-mail bevestigd te worden (double opt-in)</target>
-            </trans-unit>
-            <trans-unit id="tx_laposta_domain_model_subscriptionlist.info" resname="tx_laposta_domain_model_subscriptionlist.info">
-                <target>Info / interne notities</target>
-            </trans-unit>
-        </body>
-    </file>
+	<file source-language="en" target-language="nl" datatype="plaintext" date="2020-06-26T13:40:13Z" product-name="laposta">
+		<header/>
+		<body>
+			<trans-unit id="tx_laposta_domain_model_subscriptionlist" resname="tx_laposta_domain_model_subscriptionlist">
+				<target>Laposta nieuwbrief lijst</target>
+			</trans-unit>
+			<trans-unit id="tx_laposta_domain_model_subscription" resname="tx_laposta_domain_model_subscription">
+				<target>Aanmelding</target>
+			</trans-unit>
+			<trans-unit id="tx_laposta_subscribe.name" resname="tx_laposta_subscribe.name">
+				<target>Laposta aanmelden</target>
+			</trans-unit>
+			<trans-unit id="tx_laposta_unsubscribe.name" resname="tx_laposta_unsubscribe.name">
+				<target>Laposta afmelden</target>
+			</trans-unit>
+			<trans-unit id="tx_laposta_subscribe.description" resname="tx_laposta_subscribe.description">
+				<target>Aanmeldformulier voor één of meerdere Laposta nieuwsbrieven</target>
+			</trans-unit>
+			<trans-unit id="tx_laposta_unsubscribe.description" resname="tx_laposta_unsubscribe.description">
+				<target>Afmeldformulier voor één of meerdere Laposta nieuwsbrieven</target>
+			</trans-unit>
+			<trans-unit id="tx_laposta_domain_model_subscriptionlist.list_label"
+						resname="tx_laposta_domain_model_subscriptionlist.list_label">
+				<target>Lijst label</target>
+			</trans-unit>
+			<trans-unit id="tx_laposta_domain_model_subscriptionlist.list_id" resname="tx_laposta_domain_model_subscriptionlist.list_id">
+				<target>Laposta lijst id</target>
+			</trans-unit>
+			<trans-unit id="tx_laposta_domain_model_subscriptionlist.double_opt_in"
+						resname="tx_laposta_domain_model_subscriptionlist.double_opt_in">
+				<target>Na aanmelding dient de inschrijving per e-mail bevestigd te worden (double opt-in)</target>
+			</trans-unit>
+			<trans-unit id="tx_laposta_domain_model_subscriptionlist.info" resname="tx_laposta_domain_model_subscriptionlist.info">
+				<target>Info / interne notities</target>
+			</trans-unit>
+		</body>
+	</file>
 </xliff>
