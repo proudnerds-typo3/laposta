@@ -1,35 +1,37 @@
 {
-    "name": "proudnerds/laposta",
-    "type": "typo3-cms-extension",
-    "description": "Subscribe to and unsubscribe from Laposta newsletters",
-    "keywords": [
-        "TYPO3",
-        "extension",
-        "newsletters",
-        "subscribe"
-    ],
-    "license": ["GPL-2.0-or-later"],
-    "homepage": "https://www.proudnerds.com",
-    "authors": [
-        {
-            "name": "Jacco van der Post",
-            "role": "Developer"
-        }
-    ],
-    "require": {
-        "typo3/cms-core": "^11.5"
-    },
-    "autoload": {
-        "psr-4": {
-            "Proudnerds\\Laposta\\": "Classes"
-        }
-    },
-    "replace": {
-        "typo3-ter/laposta": "self.version"
-    },
-    "extra": {
-        "typo3/cms": {
-            "extension-key": "laposta"
-        }
-    }
+	"name": "proudnerds/laposta",
+	"type": "typo3-cms-extension",
+	"description": "Subscribe to and unsubscribe from Laposta newsletters",
+	"keywords": [
+		"TYPO3",
+		"extension",
+		"newsletters",
+		"subscribe"
+	],
+	"license": [
+		"GPL-2.0-or-later"
+	],
+	"homepage": "https://www.proudnerds.com",
+	"authors": [
+		{
+			"name": "Jacco van der Post",
+			"role": "Developer"
+		}
+	],
+	"require": {
+		"typo3/cms-core": "^12.4"
+	},
+	"autoload": {
+		"psr-4": {
+			"Proudnerds\\Laposta\\": "Classes"
+		}
+	},
+	"replace": {
+		"typo3-ter/laposta": "self.version"
+	},
+	"extra": {
+		"typo3/cms": {
+			"extension-key": "laposta"
+		}
+	}
 }

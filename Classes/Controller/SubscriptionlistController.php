@@ -11,6 +11,7 @@ use TYPO3\CMS\Core\Http\NormalizedParams;
 use TYPO3\CMS\Core\Log\LogLevel;
 use TYPO3\CMS\Core\Http\RequestFactory;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 
 /***
@@ -27,41 +28,33 @@ use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 /**
  * SubscribtionlistController
  */
-class SubscriptionlistController extends \TYPO3\CMS\Extbase\Mvc\Controller\ActionController implements LoggerAwareInterface
+class SubscriptionlistController extends ActionController implements LoggerAwareInterface
 {
     use LoggerAwareTrait;
 
     /**
-     * subscriptionlistRepository
      *
      * @var SubscriptionlistRepository
      */
-    protected $subscriptionlistRepository = null;
+    protected SubscriptionlistRepository $subscriptionlistRepository;
 
-    /**
-     * @param SubscriptionlistRepository $subscriptionlistRepository
-     */
-    public function injectSubscriptionlistRepository(SubscriptionlistRepository $subscriptionlistRepository)
+    public function __construct(
+        SubscriptionlistRepository $subscriptionlistRepository,
+        RequestFactory             $requestFactory
+    )
     {
         $this->subscriptionlistRepository = $subscriptionlistRepository;
+        $this->requestFactory = $requestFactory;
     }
 
     /** @var RequestFactory */
     protected $requestFactory = null;
 
     /**
-     * @param RequestFactory $requestFactory
-     */
-    public function injectRequestFactory(RequestFactory $requestFactory)
-    {
-        $this->requestFactory = $requestFactory;
-    }
-
-    /**
      * action subscribe
      *
      * @param array|null $messages
-     * @return void
+     * @return ResponseInterface
      */
     public function subscribeAction(array $messages = null): ResponseInterface
     {
@@ -87,7 +80,7 @@ class SubscriptionlistController extends \TYPO3\CMS\Extbase\Mvc\Controller\Actio
      * action unsubscribe
      *
      * @param array|null $messages
-     * @return void
+     * @return ResponseInterface
      */
     public function unsubscribeAction(array $messages = null): ResponseInterface
     {
@@ -114,8 +107,7 @@ class SubscriptionlistController extends \TYPO3\CMS\Extbase\Mvc\Controller\Actio
      *
      * Communicate with Laposta API
      *
-     * @return void
-     * @throws \TYPO3\CMS\Extbase\Mvc\Exception\StopActionException
+     * @return ResponseInterface
      */
     public function restAction(): ResponseInterface
     {
@@ -147,7 +139,7 @@ class SubscriptionlistController extends \TYPO3\CMS\Extbase\Mvc\Controller\Actio
             $customFields = [];
 
             foreach ($argumentKeys as $argumentKey) {
-                if (strpos($argumentKey, $customFieldLabel) !== false) {
+                if (str_contains($argumentKey, $customFieldLabel)) {
                     $customFieldKeys[] = str_replace($customFieldLabel, '', $argumentKey);
                 }
             }
@@ -198,19 +190,27 @@ class SubscriptionlistController extends \TYPO3\CMS\Extbase\Mvc\Controller\Actio
                                 if ($response->getStatusCode() === 201) {
                                     if ($list->getDoubleOptIn()) {
                                         // Double opt-in, user needs to verify his registration with email
-                                        $registrationMessage = LocalizationUtility::translate('tx_laposta.message.doubleOptinSubscribed',
-                                                'laposta') . ' ' . $list->getListLabel();
-                                        $verificationMessage = LocalizationUtility::translate('tx_laposta.message.emailVerification',
-                                            'laposta');
+                                        $registrationMessage = LocalizationUtility::translate(
+                                                'tx_laposta.message.doubleOptinSubscribed',
+                                                'laposta'
+                                            ) . ' ' . $list->getListLabel();
+                                        $verificationMessage = LocalizationUtility::translate(
+                                            'tx_laposta.message.emailVerification',
+                                            'laposta'
+                                        );
                                         $messages[] = $registrationMessage . '.<br/>' . $verificationMessage;
                                         if ($enableLog) {
-                                            $this->logger->log(LogLevel::INFO,
-                                                $email . ' -> ' . $registrationMessage . ' ' . $verificationMessage);
+                                            $this->logger->log(
+                                                LogLevel::INFO,
+                                                $email . ' -> ' . $registrationMessage . ' ' . $verificationMessage
+                                            );
                                         }
                                     } else {
                                         // No double opt-in, user is subscribed
-                                        $subscribeMessage = LocalizationUtility::translate('tx_laposta.message.subscribed',
-                                                'laposta') . ' ' . $list->getListLabel();
+                                        $subscribeMessage = LocalizationUtility::translate(
+                                                'tx_laposta.message.subscribed',
+                                                'laposta'
+                                            ) . ' ' . $list->getListLabel();
                                         $messages[] = $subscribeMessage;
                                         if ($enableLog) {
                                             $this->logger->log(LogLevel::INFO, $email . ' -> ' . $subscribeMessage);
@@ -231,8 +231,10 @@ class SubscriptionlistController extends \TYPO3\CMS\Extbase\Mvc\Controller\Actio
 
                                 // OK, user deleted from list (code 200)
                                 if ($response->getStatusCode() === 200) {
-                                    $deletedMessage = LocalizationUtility::translate('tx_laposta.message.unsubscribed',
-                                            'laposta') . ' ' . $list->getListLabel();
+                                    $deletedMessage = LocalizationUtility::translate(
+                                            'tx_laposta.message.unsubscribed',
+                                            'laposta'
+                                        ) . ' ' . $list->getListLabel();
                                     $messages[] = $deletedMessage;
                                     if ($enableLog) {
                                         $this->logger->log(LogLevel::INFO, $email . ' -> ' . $deletedMessage);
@@ -246,44 +248,60 @@ class SubscriptionlistController extends \TYPO3\CMS\Extbase\Mvc\Controller\Actio
 
                             if ($crudAction === 'create') {
                                 // E-mail already registered (code 204)
-                                if (strpos($response, '"code": 204') !== false) {
-                                    $emailAlreadyRegisteredMessage = LocalizationUtility::translate('tx_laposta.warning.emailregistered',
-                                            'laposta') . ' ' . htmlspecialchars($list->getListLabel());
+                                if (str_contains($response, '"code": 204')) {
+                                    $emailAlreadyRegisteredMessage = LocalizationUtility::translate(
+                                            'tx_laposta.warning.emailregistered',
+                                            'laposta'
+                                        ) . ' ' . htmlspecialchars($list->getListLabel());
                                     $messages[] = $emailAlreadyRegisteredMessage;
                                     if ($enableLog) {
-                                        $this->logger->log(LogLevel::INFO,
-                                            $email . ' -> ' . $emailAlreadyRegisteredMessage);
+                                        $this->logger->log(
+                                            LogLevel::INFO,
+                                            $email . ' -> ' . $emailAlreadyRegisteredMessage
+                                        );
                                     }
                                 } else {
                                     // Some error while trying to POST to Laposta
-                                    $netWorkError = LocalizationUtility::translate('tx_laposta.warning.network',
-                                        'laposta');
+                                    $netWorkError = LocalizationUtility::translate(
+                                        'tx_laposta.warning.network',
+                                        'laposta'
+                                    );
                                     $messages[] = $netWorkError;
                                     if ($enableLog) {
-                                        $this->logger->log(LogLevel::WARNING,
-                                            'Action: subscribe / create. ' . $netWorkError . '. ' . $response . ' User ip: ' . $ip . ', user email: ' . $email . ', source url: ' . $sourceUrl);
+                                        $this->logger->log(
+                                            LogLevel::WARNING,
+                                            'Action: subscribe / create. ' . $netWorkError . '. ' . $response . ' User ip: ' . $ip . ', user email: ' . $email . ', source url: ' . $sourceUrl
+                                        );
                                     }
                                 }
                             }
 
                             if ($crudAction === 'delete') {
                                 // Member does not exist
-                                if (strpos($response, '"code": 202') !== false) {
-                                    $unknownMemberMessage = LocalizationUtility::translate('tx_laposta.warning.invalidMember1',
-                                            'laposta') . ' ' . htmlspecialchars($list->getListLabel()) . ' ' . LocalizationUtility::translate('tx_laposta.warning.invalidMember2',
-                                            'laposta') . ' ' . $email;
+                                if (str_contains($response, '"code": 202')) {
+                                    $unknownMemberMessage = LocalizationUtility::translate(
+                                            'tx_laposta.warning.invalidMember1',
+                                            'laposta'
+                                        ) . ' ' . htmlspecialchars($list->getListLabel()) . ' ' . LocalizationUtility::translate(
+                                            'tx_laposta.warning.invalidMember2',
+                                            'laposta'
+                                        ) . ' ' . $email;
                                     $messages[] = $unknownMemberMessage;
                                     if ($enableLog) {
                                         $this->logger->log(LogLevel::INFO, $unknownMemberMessage);
                                     }
                                 } else {
                                     // Some error while trying to POST to Laposta
-                                    $netWorkError = LocalizationUtility::translate('tx_laposta.warning.network',
-                                        'laposta');
+                                    $netWorkError = LocalizationUtility::translate(
+                                        'tx_laposta.warning.network',
+                                        'laposta'
+                                    );
                                     $messages[] = $netWorkError;
                                     if ($enableLog) {
-                                        $this->logger->log(LogLevel::WARNING,
-                                            'Action: unsubscribe / delete. ' . $netWorkError . '. ' . $response . 'User ip: ' . $ip . ', user email: ' . $email . ', source url: ' . $sourceUrl);
+                                        $this->logger->log(
+                                            LogLevel::WARNING,
+                                            'Action: unsubscribe / delete. ' . $netWorkError . '. ' . $response . 'User ip: ' . $ip . ', user email: ' . $email . ', source url: ' . $sourceUrl
+                                        );
                                     }
                                 }
                             }
@@ -299,17 +317,19 @@ class SubscriptionlistController extends \TYPO3\CMS\Extbase\Mvc\Controller\Actio
             }
         } else {
             if ($enableLog && ((int)($this->settings['logHoneyTrap']) === 1)) {
-                $this->logger->log(LogLevel::INFO,
-                    'Spam attempt? Honey pot field filled with: ' . htmlspecialchars($arguments['laposta.important']) . '. User ip: ' . $ip . ', source url: ' . $sourceUrl);
+                $this->logger->log(
+                    LogLevel::INFO,
+                    'Spam attempt? Honey pot field filled with: ' . htmlspecialchars($arguments['laposta.important']) . '. User ip: ' . $ip . ', source url: ' . $sourceUrl
+                );
             }
         }
 
         if ($crudAction === 'create') {
-            $this->redirect('subscribe', 'Subscriptionlist', 'laposta', ['messages' => $messages]);
+            return $this->redirect('subscribe', 'Subscriptionlist', 'laposta', ['messages' => $messages]);
         }
 
         if ($crudAction === 'delete') {
-            $this->redirect('unsubscribe', 'Subscriptionlist', 'laposta', ['messages' => $messages]);
+            return $this->redirect('unsubscribe', 'Subscriptionlist', 'laposta', ['messages' => $messages]);
         }
     }
 }

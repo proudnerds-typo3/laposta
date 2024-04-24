@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <xliff version="1.0">
-	<file source-language="en" datatype="plaintext" original="EXT:laposta/Resources/Private/Language/locallang_db" date="2020-06-26T13:40:13Z" product-name="laposta">
+	<file source-language="en" datatype="plaintext" original="EXT:laposta/Resources/Private/Language/locallang_db"
+		  date="2020-06-26T13:40:13Z" product-name="laposta">
 		<header/>
 		<body>
 			<trans-unit id="tx_laposta_domain_model_subscriptionlist" resname="tx_laposta_domain_model_subscriptionlist">
@@ -21,13 +22,15 @@
 			<trans-unit id="tx_laposta_unsubscribe.description" resname="tx_laposta_unsubscribe.description">
 				<source>Unsubscription form for one or more Laposta newsletters</source>
 			</trans-unit>
-			<trans-unit id="tx_laposta_domain_model_subscriptionlist.list_label" resname="tx_laposta_domain_model_subscriptionlist.list_label">
+			<trans-unit id="tx_laposta_domain_model_subscriptionlist.list_label"
+						resname="tx_laposta_domain_model_subscriptionlist.list_label">
 				<source>List label</source>
 			</trans-unit>
 			<trans-unit id="tx_laposta_domain_model_subscriptionlist.list_id" resname="tx_laposta_domain_model_subscriptionlist.list_id">
 				<source>Laposta list id</source>
 			</trans-unit>
-			<trans-unit id="tx_laposta_domain_model_subscriptionlist.double_opt_in" resname="tx_laposta_domain_model_subscriptionlist.double_opt_in">
+			<trans-unit id="tx_laposta_domain_model_subscriptionlist.double_opt_in"
+						resname="tx_laposta_domain_model_subscriptionlist.double_opt_in">
 				<source>List has double opt-in (conformation email)</source>
 			</trans-unit>
 			<trans-unit id="tx_laposta_domain_model_subscriptionlist.info" resname="tx_laposta_domain_model_subscriptionlist.info">
