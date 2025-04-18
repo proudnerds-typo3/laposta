@@ -16,3 +16,4 @@ ChangeLog
 * 11.5.0 Release for TYPO3 11.5
 * 11.5.1 Small TCA fixes TYPO3 11
 * 12.4.0 Release for TYPO3 12
+* 12.4.1 Small bugfix, prevent log errors on spam

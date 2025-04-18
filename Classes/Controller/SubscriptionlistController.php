@@ -113,6 +113,11 @@ class SubscriptionlistController extends ActionController implements LoggerAware
     {
         $messages = [];
         $arguments = $this->request->getArguments();
+
+        if (!isset($arguments['crudAction'])) {
+            return $this->redirect('subscribe', 'Subscriptionlist', 'laposta');
+        }
+
         $crudAction = htmlspecialchars($arguments['crudAction']);
         $ip = GeneralUtility::getIndpEnv('REMOTE_ADDR');
 
@@ -128,7 +133,7 @@ class SubscriptionlistController extends ActionController implements LoggerAware
         }
 
         // Honey trap field not field in?
-        if (!$arguments['laposta.important']) {
+        if (!isset($arguments['laposta.important']) || !$arguments['laposta.important']) {
             $customFieldLabel = htmlspecialchars($this->settings['customFieldNameStartsWith']);
             $ip = GeneralUtility::getIndpEnv('REMOTE_ADDR');
 
@@ -149,9 +154,9 @@ class SubscriptionlistController extends ActionController implements LoggerAware
             }
 
             $listUids = [];
-            $email = htmlspecialchars($arguments['email']);
 
-            if ($email) {
+            if (isset($arguments['email'])) {
+                $email = htmlspecialchars($arguments['email']);
                 $numberOfLists = (int)($arguments['numberOfLists']);
 
                 for ($subscriptionNumber = 1; $subscriptionNumber <= $numberOfLists; $subscriptionNumber++) {
