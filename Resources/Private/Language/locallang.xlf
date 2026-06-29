@@ -16,6 +16,12 @@
 			<trans-unit id="tx_laposta.required" resname="tx_laposta.required">
 				<source>Required field</source>
 			</trans-unit>
+			<trans-unit id="tx_laposta.requiredHint" resname="tx_laposta.requiredHint">
+				<source>Fields marked with * are required.</source>
+			</trans-unit>
+			<trans-unit id="tx_laposta.noLists" resname="tx_laposta.noLists">
+				<source>There are no newsletters available at the moment.</source>
+			</trans-unit>
 			<trans-unit id="tx_laposta.honey" resname="tx_laposta.honey">
 				<source>Important</source>
 			</trans-unit>
@@ -23,37 +29,37 @@
 				<source>Subscribe</source>
 			</trans-unit>
 			<trans-unit id="tx_laposta.unsubscribe" resname="tx_laposta.unsubscribe">
-				<source>Unsubcribe</source>
+				<source>Unsubscribe</source>
+			</trans-unit>
+			<trans-unit id="tx_laposta.legend" resname="tx_laposta.legend">
+				<source>Choose one or more newsletters</source>
 			</trans-unit>
 			<trans-unit id="tx_laposta.warning.email" resname="tx_laposta.warning.email">
-				<source>Please provide your email</source>
+				<source>Please provide your email.</source>
 			</trans-unit>
 			<trans-unit id="tx_laposta.warning.lists" resname="tx_laposta.warning.lists">
-				<source>Please choose at least one newsletter</source>
+				<source>Please choose at least one newsletter.</source>
 			</trans-unit>
 			<trans-unit id="tx_laposta.warning.network" resname="tx_laposta.warning.network">
-				<source>Something went wrong, please inform us</source>
+				<source>Something went wrong, please inform us.</source>
 			</trans-unit>
-			<trans-unit id="tx_laposta.warning.emailregistered" resname="tx_laposta.warning.emailregistered">
-				<source>Your email address is already registered for</source>
+			<trans-unit id="tx_laposta.message.subscribedIntro" resname="tx_laposta.message.subscribedIntro">
+				<source>You have been subscribed to:</source>
 			</trans-unit>
-			<trans-unit id="tx_laposta.message.subscribed" resname="tx_laposta.message.subscribed">
-				<source>Thanks, you have been subscribed to our newsletter</source>
+			<trans-unit id="tx_laposta.message.doubleOptinIntro" resname="tx_laposta.message.doubleOptinIntro">
+				<source>We have received your subscription to:</source>
 			</trans-unit>
-			<trans-unit id="tx_laposta.message.doubleOptinSubscribed" resname="tx_laposta.message.doubleOptinSubscribed">
-				<source>Thanks, we have received your registration for our newsletter</source>
+			<trans-unit id="tx_laposta.message.doubleOptinOutro" resname="tx_laposta.message.doubleOptinOutro">
+				<source>Confirm your subscription using the link in the email we send you.</source>
 			</trans-unit>
-			<trans-unit id="tx_laposta.message.emailVerification" resname="tx_laposta.message.emailVerification">
-				<source>Please check your email to verify your subscription</source>
+			<trans-unit id="tx_laposta.message.unsubscribedIntro" resname="tx_laposta.message.unsubscribedIntro">
+				<source>You have been unsubscribed from:</source>
 			</trans-unit>
-			<trans-unit id="tx_laposta.warning.invalidMember1" resname="tx_laposta.warning.invalidMember1">
-				<source>A subscription for newsletter</source>
+			<trans-unit id="tx_laposta.warning.alreadyRegisteredIntro" resname="tx_laposta.warning.alreadyRegisteredIntro">
+				<source>This email address is already subscribed to:</source>
 			</trans-unit>
-			<trans-unit id="tx_laposta.warning.invalidMember2" resname="tx_laposta.warning.invalidMember2">
-				<source>could not be found for email address</source>
-			</trans-unit>
-			<trans-unit id="tx_laposta.message.unsubscribed" resname="tx_laposta.message.unsubscribed">
-				<source>You have been unsubscribed from our newsletter</source>
+			<trans-unit id="tx_laposta.warning.unknownMemberIntro" resname="tx_laposta.warning.unknownMemberIntro">
+				<source>We could not find a subscription for %s for:</source>
 			</trans-unit>
 		</body>
 	</file>

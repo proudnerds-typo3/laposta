@@ -5,6 +5,7 @@ plugin {
       templateRootPaths.1 = {$plugin.tx_laposta.view.templateRootPath}
       layoutRootPaths.0 = EXT:laposta/Resources/Private/Layouts/
       layoutRootPaths.1 = {$plugin.tx_laposta.view.layoutRootPath}
+      partialRootPaths.0 = EXT:laposta/Resources/Private/Partials/
     }
 
     persistence {

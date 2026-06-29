@@ -1,0 +1,25 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers"
+      xmlns:laposta="http://typo3.org/ns/Proudnerds/Laposta/ViewHelpers"
+      data-namespace-typo3-fluid="true">
+<f:comment><!-- Controller encodes an intro, the newsletters as a bulleted list, and an optional outro; render them as <p> and <ul> (no <br>). --></f:comment>
+<f:flashMessages as="flashMessages">
+    <f:for each="{flashMessages}" as="flashMessage">
+        <div class="alert alert-{flashMessage.severity.cssClass}" role="alert" tabindex="-1" data-laposta-message="1">
+            <f:for each="{flashMessage.message -> laposta:messageBlocks()}" as="block">
+                <f:if condition="{block.type} == 'list'">
+                    <f:then>
+                        <ul class="laposta-message__list">
+                            <f:for each="{block.items}" as="item">
+                                <li>{item}</li>
+                            </f:for>
+                        </ul>
+                    </f:then>
+                    <f:else>
+                        <p>{block.text}</p>
+                    </f:else>
+                </f:if>
+            </f:for>
+        </div>
+    </f:for>
+</f:flashMessages>
+</html>

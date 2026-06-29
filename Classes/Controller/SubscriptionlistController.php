@@ -1,15 +1,19 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Proudnerds\Laposta\Controller;
 
 use Proudnerds\Laposta\Domain\Model\Subscriptionlist;
 use Proudnerds\Laposta\Domain\Repository\SubscriptionlistRepository;
+use Proudnerds\Laposta\ViewHelpers\MessageBlocksViewHelper;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Log\LoggerAwareInterface;
 use Psr\Log\LoggerAwareTrait;
 use TYPO3\CMS\Core\Http\NormalizedParams;
-use TYPO3\CMS\Core\Log\LogLevel;
 use TYPO3\CMS\Core\Http\RequestFactory;
+use TYPO3\CMS\Core\Log\LogLevel;
+use TYPO3\CMS\Core\Type\ContextualFeedbackSeverity;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
@@ -32,31 +36,25 @@ class SubscriptionlistController extends ActionController implements LoggerAware
 {
     use LoggerAwareTrait;
 
-    /**
-     *
-     * @var SubscriptionlistRepository
-     */
     protected SubscriptionlistRepository $subscriptionlistRepository;
+
+    protected RequestFactory $requestFactory;
 
     public function __construct(
         SubscriptionlistRepository $subscriptionlistRepository,
-        RequestFactory             $requestFactory
-    )
-    {
+        RequestFactory $requestFactory
+    ) {
         $this->subscriptionlistRepository = $subscriptionlistRepository;
         $this->requestFactory = $requestFactory;
     }
 
-    /** @var RequestFactory */
-    protected $requestFactory = null;
-
     /**
      * action subscribe
      *
-     * @param array|null $messages
-     * @return ResponseInterface
+     * Messages are passed through the flash message queue (see restAction) and rendered
+     * in the template with <f:flashMessages>; they no longer travel in the URL.
      */
-    public function subscribeAction(array $messages = null): ResponseInterface
+    public function subscribeAction(): ResponseInterface
     {
         $lists = null;
 
@@ -68,10 +66,7 @@ class SubscriptionlistController extends ActionController implements LoggerAware
             }
         }
 
-        $this->view->assignMultiple([
-            'lists' => $lists,
-            'messages' => $messages
-        ]);
+        $this->view->assign('lists', $lists);
 
         return $this->htmlResponse();
     }
@@ -79,10 +74,10 @@ class SubscriptionlistController extends ActionController implements LoggerAware
     /**
      * action unsubscribe
      *
-     * @param array|null $messages
-     * @return ResponseInterface
+     * Messages are passed through the flash message queue (see restAction) and rendered
+     * in the template with <f:flashMessages>; they no longer travel in the URL.
      */
-    public function unsubscribeAction(array $messages = null): ResponseInterface
+    public function unsubscribeAction(): ResponseInterface
     {
         $lists = null;
 
@@ -94,10 +89,7 @@ class SubscriptionlistController extends ActionController implements LoggerAware
             }
         }
 
-        $this->view->assignMultiple([
-            'lists' => $lists,
-            'messages' => $messages
-        ]);
+        $this->view->assign('lists', $lists);
 
         return $this->htmlResponse();
     }
@@ -111,7 +103,6 @@ class SubscriptionlistController extends ActionController implements LoggerAware
      */
     public function restAction(): ResponseInterface
     {
-        $messages = [];
         $arguments = $this->request->getArguments();
 
         if (!isset($arguments['crudAction'])) {
@@ -121,16 +112,9 @@ class SubscriptionlistController extends ActionController implements LoggerAware
         $crudAction = htmlspecialchars($arguments['crudAction']);
         $ip = GeneralUtility::getIndpEnv('REMOTE_ADDR');
 
-        $request = $GLOBALS['TYPO3_REQUEST'];
-
         /** @var NormalizedParams $normalizedParams */
-        $normalizedParams = $request->getAttribute('normalizedParams');
+        $normalizedParams = $this->request->getAttribute('normalizedParams');
         $sourceUrl = $normalizedParams->getRequestUrl();
-
-        $enableLog = false;
-        if ($this->settings['enableLog'] === '1') {
-            $enableLog = true;
-        }
 
         // Honey trap field not field in?
         if (!isset($arguments['laposta.important']) || !$arguments['laposta.important']) {
@@ -168,13 +152,23 @@ class SubscriptionlistController extends ActionController implements LoggerAware
                 }
 
                 if (count($listUids) > 0) {
+                    // Collect the outcome per newsletter so we can show one grouped message per
+                    // outcome afterwards (shared text once + the newsletters as a list), instead
+                    // of one repetitive alert block per newsletter.
+                    $subscribed = [];
+                    $doubleOptin = [];
+                    $alreadyRegistered = [];
+                    $unsubscribed = [];
+                    $unknownMember = [];
+                    $networkError = false;
+
                     foreach ($listUids as $listUid) {
+                        $list = null;
                         try {
                             /** @var Subscriptionlist $list */
-                            $list = $this->subscriptionlistRepository->findByUid($listUid);
+                            $list = $this->subscriptionlistRepository->findByUid((int)$listUid);
 
                             $tryUrl = htmlspecialchars($this->settings['apiUrl']);
-
 
                             // Add a subscription
                             if ($crudAction === 'create') {
@@ -185,8 +179,8 @@ class SubscriptionlistController extends ActionController implements LoggerAware
                                         'ip' => $ip,
                                         'email' => $email,
                                         'source_url' => $sourceUrl,
-                                        'custom_fields' => $customFields
-                                    ]
+                                        'custom_fields' => $customFields,
+                                    ],
                                 ];
 
                                 $response = $this->requestFactory->request($tryUrl, 'POST', $additionalOptions);
@@ -194,40 +188,18 @@ class SubscriptionlistController extends ActionController implements LoggerAware
                                 // Success on subscribing (code 201)
                                 if ($response->getStatusCode() === 201) {
                                     if ($list->getDoubleOptIn()) {
-                                        // Double opt-in, user needs to verify his registration with email
-                                        $registrationMessage = LocalizationUtility::translate(
-                                                'tx_laposta.message.doubleOptinSubscribed',
-                                                'laposta'
-                                            ) . ' ' . $list->getListLabel();
-                                        $verificationMessage = LocalizationUtility::translate(
-                                            'tx_laposta.message.emailVerification',
-                                            'laposta'
-                                        );
-                                        $messages[] = $registrationMessage . '.<br/>' . $verificationMessage;
-                                        if ($enableLog) {
-                                            $this->logger->log(
-                                                LogLevel::INFO,
-                                                $email . ' -> ' . $registrationMessage . ' ' . $verificationMessage
-                                            );
-                                        }
+                                        $doubleOptin[] = $list->getListLabel();
                                     } else {
-                                        // No double opt-in, user is subscribed
-                                        $subscribeMessage = LocalizationUtility::translate(
-                                                'tx_laposta.message.subscribed',
-                                                'laposta'
-                                            ) . ' ' . $list->getListLabel();
-                                        $messages[] = $subscribeMessage;
-                                        if ($enableLog) {
-                                            $this->logger->log(LogLevel::INFO, $email . ' -> ' . $subscribeMessage);
-                                        }
+                                        $subscribed[] = $list->getListLabel();
                                     }
+                                    $this->writeLog(LogLevel::INFO, $email . ' -> subscribed -> ' . $list->getListLabel());
                                 }
                             }
 
                             // Delete a subscription
                             if ($crudAction === 'delete') {
                                 $additionalOptions = [
-                                    'auth' => [htmlspecialchars($this->settings['apiKey']), '']
+                                    'auth' => [htmlspecialchars($this->settings['apiKey']), ''],
                                 ];
 
                                 $tryUrl = $tryUrl . '/' . $email . '?list_id=' . htmlspecialchars($list->getListId());
@@ -236,105 +208,176 @@ class SubscriptionlistController extends ActionController implements LoggerAware
 
                                 // OK, user deleted from list (code 200)
                                 if ($response->getStatusCode() === 200) {
-                                    $deletedMessage = LocalizationUtility::translate(
-                                            'tx_laposta.message.unsubscribed',
-                                            'laposta'
-                                        ) . ' ' . $list->getListLabel();
-                                    $messages[] = $deletedMessage;
-                                    if ($enableLog) {
-                                        $this->logger->log(LogLevel::INFO, $email . ' -> ' . $deletedMessage);
-                                    }
+                                    $unsubscribed[] = $list->getListLabel();
+                                    $this->writeLog(LogLevel::INFO, $email . ' -> unsubscribed -> ' . $list->getListLabel());
                                 }
                             }
-                        } catch (
-                        \Exception $e
-                        ) {
+                        } catch (\Exception $e) {
                             $response = $e->getMessage();
 
                             if ($crudAction === 'create') {
                                 // E-mail already registered (code 204)
                                 if (str_contains($response, '"code": 204')) {
-                                    $emailAlreadyRegisteredMessage = LocalizationUtility::translate(
-                                            'tx_laposta.warning.emailregistered',
-                                            'laposta'
-                                        ) . ' ' . htmlspecialchars($list->getListLabel());
-                                    $messages[] = $emailAlreadyRegisteredMessage;
-                                    if ($enableLog) {
-                                        $this->logger->log(
-                                            LogLevel::INFO,
-                                            $email . ' -> ' . $emailAlreadyRegisteredMessage
-                                        );
-                                    }
+                                    $alreadyRegistered[] = $list?->getListLabel() ?? '';
+                                    $this->writeLog(LogLevel::INFO, $email . ' -> already registered -> ' . ($list?->getListLabel() ?? ''));
                                 } else {
-                                    // Some error while trying to POST to Laposta
-                                    $netWorkError = LocalizationUtility::translate(
-                                        'tx_laposta.warning.network',
-                                        'laposta'
+                                    $networkError = true;
+                                    $this->writeLog(
+                                        LogLevel::WARNING,
+                                        'Action: subscribe / create. ' . $response . ' User ip: ' . $ip . ', user email: ' . $email . ', source url: ' . $sourceUrl
                                     );
-                                    $messages[] = $netWorkError;
-                                    if ($enableLog) {
-                                        $this->logger->log(
-                                            LogLevel::WARNING,
-                                            'Action: subscribe / create. ' . $netWorkError . '. ' . $response . ' User ip: ' . $ip . ', user email: ' . $email . ', source url: ' . $sourceUrl
-                                        );
-                                    }
                                 }
                             }
 
                             if ($crudAction === 'delete') {
-                                // Member does not exist
+                                // Member does not exist (code 202)
                                 if (str_contains($response, '"code": 202')) {
-                                    $unknownMemberMessage = LocalizationUtility::translate(
-                                            'tx_laposta.warning.invalidMember1',
-                                            'laposta'
-                                        ) . ' ' . htmlspecialchars($list->getListLabel()) . ' ' . LocalizationUtility::translate(
-                                            'tx_laposta.warning.invalidMember2',
-                                            'laposta'
-                                        ) . ' ' . $email;
-                                    $messages[] = $unknownMemberMessage;
-                                    if ($enableLog) {
-                                        $this->logger->log(LogLevel::INFO, $unknownMemberMessage);
-                                    }
+                                    $unknownMember[] = $list?->getListLabel() ?? '';
+                                    $this->writeLog(LogLevel::INFO, $email . ' -> unknown member -> ' . ($list?->getListLabel() ?? ''));
                                 } else {
-                                    // Some error while trying to POST to Laposta
-                                    $netWorkError = LocalizationUtility::translate(
-                                        'tx_laposta.warning.network',
-                                        'laposta'
+                                    $networkError = true;
+                                    $this->writeLog(
+                                        LogLevel::WARNING,
+                                        'Action: unsubscribe / delete. ' . $response . ' User ip: ' . $ip . ', user email: ' . $email . ', source url: ' . $sourceUrl
                                     );
-                                    $messages[] = $netWorkError;
-                                    if ($enableLog) {
-                                        $this->logger->log(
-                                            LogLevel::WARNING,
-                                            'Action: unsubscribe / delete. ' . $netWorkError . '. ' . $response . 'User ip: ' . $ip . ', user email: ' . $email . ', source url: ' . $sourceUrl
-                                        );
-                                    }
                                 }
                             }
                         }
                     }
+
+                    // One grouped message per outcome: intro line + the newsletters as a list.
+                    if ($subscribed !== []) {
+                        $this->addListFlashMessage(
+                            LocalizationUtility::translate('tx_laposta.message.subscribedIntro', 'laposta') ?? '',
+                            $subscribed,
+                            '',
+                            ContextualFeedbackSeverity::OK
+                        );
+                    }
+                    if ($doubleOptin !== []) {
+                        $this->addListFlashMessage(
+                            LocalizationUtility::translate('tx_laposta.message.doubleOptinIntro', 'laposta') ?? '',
+                            $doubleOptin,
+                            LocalizationUtility::translate('tx_laposta.message.doubleOptinOutro', 'laposta') ?? '',
+                            ContextualFeedbackSeverity::INFO
+                        );
+                    }
+                    if ($alreadyRegistered !== []) {
+                        $this->addListFlashMessage(
+                            LocalizationUtility::translate('tx_laposta.warning.alreadyRegisteredIntro', 'laposta') ?? '',
+                            $alreadyRegistered,
+                            '',
+                            ContextualFeedbackSeverity::WARNING
+                        );
+                    }
+                    if ($unsubscribed !== []) {
+                        $this->addListFlashMessage(
+                            LocalizationUtility::translate('tx_laposta.message.unsubscribedIntro', 'laposta') ?? '',
+                            $unsubscribed,
+                            '',
+                            ContextualFeedbackSeverity::OK
+                        );
+                    }
+                    if ($unknownMember !== []) {
+                        $this->addListFlashMessage(
+                            LocalizationUtility::translate('tx_laposta.warning.unknownMemberIntro', 'laposta', [$email]) ?? '',
+                            $unknownMember,
+                            '',
+                            ContextualFeedbackSeverity::WARNING
+                        );
+                    }
+                    if ($networkError) {
+                        $this->addParagraphedFlashMessage(
+                            [LocalizationUtility::translate('tx_laposta.warning.network', 'laposta') ?? ''],
+                            ContextualFeedbackSeverity::ERROR
+                        );
+                    }
                 } else {
                     // No newslist checked by user
-                    $messages[] = LocalizationUtility::translate('tx_laposta.warning.lists', 'laposta');
+                    $this->addParagraphedFlashMessage(
+                        [LocalizationUtility::translate('tx_laposta.warning.lists', 'laposta') ?? ''],
+                        ContextualFeedbackSeverity::WARNING
+                    );
                 }
             } else {
                 // No email given by user
-                $messages[] = LocalizationUtility::translate('tx_laposta.warning.email', 'laposta');
+                $this->addParagraphedFlashMessage(
+                    [LocalizationUtility::translate('tx_laposta.warning.email', 'laposta')],
+                    ContextualFeedbackSeverity::WARNING
+                );
             }
         } else {
-            if ($enableLog && ((int)($this->settings['logHoneyTrap']) === 1)) {
-                $this->logger->log(
+            if (((int)($this->settings['logHoneyTrap'])) === 1) {
+                $this->writeLog(
                     LogLevel::INFO,
                     'Spam attempt? Honey pot field filled with: ' . htmlspecialchars($arguments['laposta.important']) . '. User ip: ' . $ip . ', source url: ' . $sourceUrl
                 );
             }
         }
 
-        if ($crudAction === 'create') {
-            return $this->redirect('subscribe', 'Subscriptionlist', 'laposta', ['messages' => $messages]);
+        if ($crudAction === 'delete') {
+            return $this->redirect('unsubscribe', 'Subscriptionlist', 'laposta');
         }
 
-        if ($crudAction === 'delete') {
-            return $this->redirect('unsubscribe', 'Subscriptionlist', 'laposta', ['messages' => $messages]);
+        return $this->redirect('subscribe', 'Subscriptionlist', 'laposta');
+    }
+
+    /**
+     * Add one flash message: an intro paragraph, the given newsletter names as a bulleted
+     * list, and an optional outro paragraph. A single name is rendered as a plain paragraph
+     * (the partial turns a one-item list into a paragraph). Empty names are skipped.
+     *
+     * @param array<int, string> $labels
+     */
+    private function addListFlashMessage(string $intro, array $labels, string $outro, ContextualFeedbackSeverity $severity): void
+    {
+        $paragraphs = [$intro];
+        foreach ($labels as $label) {
+            $label = trim($label);
+            if ($label !== '') {
+                $paragraphs[] = MessageBlocksViewHelper::LIST_ITEM_PREFIX . $label;
+            }
+        }
+        if ($outro !== '') {
+            $paragraphs[] = $outro;
+        }
+
+        $this->addParagraphedFlashMessage($paragraphs, $severity);
+    }
+
+    /**
+     * Add a single flash message whose body consists of separate paragraphs.
+     *
+     * Paragraphs are separated by a newline; the Fluid partial renders them as separate
+     * <p> elements (no <br>, no HTML built in PHP). Whitespace inside each paragraph is
+     * collapsed so formatting in the .xlf files cannot affect the paragraph splitting.
+     *
+     * @param array<int, string> $paragraphs
+     */
+    private function addParagraphedFlashMessage(array $paragraphs, ContextualFeedbackSeverity $severity): void
+    {
+        $paragraphs = array_values(array_filter(
+            array_map(
+                static fn(string $paragraph): string => trim((string)preg_replace('/\s+/', ' ', $paragraph)),
+                $paragraphs
+            ),
+            static fn(string $paragraph): bool => $paragraph !== ''
+        ));
+
+        if ($paragraphs === []) {
+            return;
+        }
+
+        $this->addFlashMessage(implode("\n", $paragraphs), '', $severity);
+    }
+
+    /**
+     * Write a log entry, but only when logging is enabled in the plugin settings.
+     */
+    private function writeLog(string $level, string $message): void
+    {
+        if (($this->settings['enableLog'] ?? '') === '1') {
+            $this->logger->log($level, $message);
         }
     }
 }

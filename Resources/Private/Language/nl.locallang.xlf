@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <xliff version="1.0">
-	<file target-language="nl" datatype="plaintext" original="EXT:laposta/Retargets/Private/Language/locallang" date="2020-06-26T13:40:13Z"
+	<file target-language="nl" datatype="plaintext" original="EXT:laposta/Resources/Private/Language/locallang" date="2020-06-26T13:40:13Z"
 		  product-name="laposta">
 		<header/>
 		<body>
@@ -16,6 +16,12 @@
 			<trans-unit id="tx_laposta.required" resname="tx_laposta.required">
 				<target>Verplicht veld</target>
 			</trans-unit>
+			<trans-unit id="tx_laposta.requiredHint" resname="tx_laposta.requiredHint">
+				<target>Velden met een * zijn verplicht.</target>
+			</trans-unit>
+			<trans-unit id="tx_laposta.noLists" resname="tx_laposta.noLists">
+				<target>Er zijn op dit moment geen nieuwsbrieven beschikbaar.</target>
+			</trans-unit>
 			<trans-unit id="tx_laposta.honey" resname="tx_laposta.honey">
 				<target>Belangrijk</target>
 			</trans-unit>
@@ -25,37 +31,35 @@
 			<trans-unit id="tx_laposta.unsubscribe" resname="tx_laposta.unsubscribe">
 				<target>Afmelden</target>
 			</trans-unit>
+			<trans-unit id="tx_laposta.legend" resname="tx_laposta.legend">
+				<target>Kies één of meer nieuwsbrieven</target>
+			</trans-unit>
 			<trans-unit id="tx_laposta.warning.email" resname="tx_laposta.warning.email">
-				<target>Voer svp uw e-mailadres in</target>
+				<target>Voer svp uw e-mailadres in.</target>
 			</trans-unit>
 			<trans-unit id="tx_laposta.warning.lists" resname="tx_laposta.warning.lists">
-				<target>Kies 1 of meerdere nieuwsbrieven</target>
+				<target>Kies 1 of meerdere nieuwsbrieven.</target>
 			</trans-unit>
 			<trans-unit id="tx_laposta.warning.network" resname="tx_laposta.warning.network">
-				<target>Er ging iets mis, informeer ons svp</target>
+				<target>Er ging iets mis, informeer ons svp.</target>
 			</trans-unit>
-			<trans-unit id="tx_laposta.warning.emailregistered" resname="tx_laposta.warning.emailregistered">
-				<target>U bent al aangemeld met dit e-mailadres voor onze nieuwsbrief</target>
+			<trans-unit id="tx_laposta.message.subscribedIntro" resname="tx_laposta.message.subscribedIntro">
+				<target>U bent aangemeld voor:</target>
 			</trans-unit>
-			<trans-unit id="tx_laposta.message.subscribed" resname="tx_laposta.message.subscribed">
-				<target>Bedankt voor uw aanmelding voor onze nieuwsbrief</target>
+			<trans-unit id="tx_laposta.message.doubleOptinIntro" resname="tx_laposta.message.doubleOptinIntro">
+				<target>We hebben uw aanmelding ontvangen voor:</target>
 			</trans-unit>
-			<trans-unit id="tx_laposta.message.doubleOptinSubscribed" resname="tx_laposta.message.doubleOptinSubscribed">
-				<target>We hebben uw aanmelding ontvangen en sturen u een e-mail. Bevestig uw aanmelding door op de link in de e-mail te
-					klikken
-				</target>
+			<trans-unit id="tx_laposta.message.doubleOptinOutro" resname="tx_laposta.message.doubleOptinOutro">
+				<target>Bevestig uw aanmelding via de link in de e-mail die wij u sturen.</target>
 			</trans-unit>
-			<trans-unit id="tx_laposta.message.emailVerification" resname="tx_laposta.message.emailVerification">
-				<target>Check svp uw e-mail om uw aanmelding te bevestigen</target>
+			<trans-unit id="tx_laposta.message.unsubscribedIntro" resname="tx_laposta.message.unsubscribedIntro">
+				<target>U bent afgemeld voor:</target>
 			</trans-unit>
-			<trans-unit id="tx_laposta.warning.invalidMember1" resname="tx_laposta.warning.invalidMember1">
-				<target>Een inschrijving voor onze nieuwsbrief</target>
+			<trans-unit id="tx_laposta.warning.alreadyRegisteredIntro" resname="tx_laposta.warning.alreadyRegisteredIntro">
+				<target>U bent met dit e-mailadres al aangemeld voor:</target>
 			</trans-unit>
-			<trans-unit id="tx_laposta.warning.invalidMember2" resname="tx_laposta.warning.invalidMember2">
-				<target>kon niet worden gevonden voor het e-mailadres</target>
-			</trans-unit>
-			<trans-unit id="tx_laposta.message.unsubscribed" resname="tx_laposta.message.unsubscribed">
-				<target>U heeft zich afgemeld van onze nieuwsbrief</target>
+			<trans-unit id="tx_laposta.warning.unknownMemberIntro" resname="tx_laposta.warning.unknownMemberIntro">
+				<target>We konden voor %s geen aanmelding vinden voor:</target>
 			</trans-unit>
 		</body>
 	</file>
