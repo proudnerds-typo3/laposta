@@ -1,16 +1,8 @@
-﻿.. ==================================================
-.. FOR YOUR INFORMATION
-.. --------------------------------------------------
-.. -*- coding: utf-8 -*- with BOM.
+..  _known-problems:
 
-.. include:: ../Includes.txt
-
-
-.. _known-problems:
-
-Known Problems
+==============
+Known problems
 ==============
 
-None yet, but please let us know.
-
-https://github.com/proudnerds-typo3/laposta/issues
+None yet, but please let us know via the
+`issue tracker <https://github.com/proudnerds-typo3/laposta/issues>`__.

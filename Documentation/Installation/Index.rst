@@ -1,8 +1,4 @@
-﻿.. include:: ../Includes.txt
-
-
-
-.. _installation:
+..  _installation:
 
 ============
 Installation
@@ -10,19 +6,22 @@ Installation
 
 Target group: **Administrators / Integrators**
 
-* composer req proudnerds/laposta
-* include the typoscript template
-* add to editor backend user groups
-* add the Laposta apiKey in constants settings
-* create 'Laposta newsletter list' records
-* insert the plugins for subscribe and unsubscribe on pages
-* choose the 'Laposta newsletter list' records
-* set the records storage page to the page where you keep the 'Laposta newsletter list' records
-* on Laposta.nl you can add custom fields for each of your newsletters. In the template are now email (required), voornaam and achternaam
-* you can easily change and add custom fields in the template, just put 'customField.' before it and it works
-* a log is kept in /var/log/Laposta.log
+#.  Install the extension: ``composer require proudnerds/laposta``.
+#.  Include the TypoScript template.
+#.  Add the extension to the relevant backend user groups.
+#.  Add the Laposta ``apiKey`` in the constants settings.
+#.  Create "Laposta newsletter list" records.
+#.  Insert the subscribe and unsubscribe plugins on your pages.
+#.  Select the "Laposta newsletter list" records on each plugin.
+#.  Set the record storage page to the page that holds the list records.
+#.  On laposta.nl you can add custom fields per newsletter. The template ships with
+    email (required), voornaam and achternaam.
+#.  Add or change custom fields in the template by prefixing the field name with
+    ``customField.``.
+#.  A log is kept in :file:`var/log/Laposta.log`.
 
-.. figure:: ../Images/Laposta.png
-   :class: with-shadow
-   :width: 586px
-   :alt: Route Enhancer
+..  figure:: ../Images/Laposta.png
+    :class: with-shadow
+    :alt: The Laposta newsletter subscription form in the TYPO3 frontend
+
+    The Laposta newsletter subscription form in the TYPO3 frontend.

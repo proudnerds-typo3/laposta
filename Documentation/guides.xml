@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<guides xmlns="https://www.phpdoc.org/guides" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="https://www.phpdoc.org/guides ../vendor/phpdocumentor/guides-cli/resources/schema/guides.xsd"
+        links-are-relative="true"
+        default-code-language="php"
+>
+    <extension class="\T3Docs\Typo3DocsTheme\DependencyInjection\Typo3DocsThemeExtension"
+               project-home="https://github.com/proudnerds-typo3/laposta"
+               project-repository="https://github.com/proudnerds-typo3/laposta"
+               project-issues="https://github.com/proudnerds-typo3/laposta/issues"
+               edit-on-github="proudnerds-typo3/laposta"
+               edit-on-github-branch="12.5"
+               typo3-core-preferred="12.4"
+               interlink-shortcode="proudnerds/laposta"
+    />
+    <project title="Laposta" release="12.5.0" version="12.5"
+             copyright="since 2020 by Proud Nerds"/>
+    <inventory id="t3coreapi" url="https://docs.typo3.org/m/typo3/reference-coreapi/12.4/en-us/"/>
+    <inventory id="t3tsref" url="https://docs.typo3.org/m/typo3/reference-typoscript/12.4/en-us/"/>
+</guides>

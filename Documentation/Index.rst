@@ -1,42 +1,14 @@
-﻿.. ---------------------------------------------------------------
-   This is the start file. It gets displayed as first page
-   https://docs.typo3.org/m/typo3/docs-how-to-document/master/en-us/GeneralConventions/DirectoryFilenames.html#supported-filenames-and-formats
-   ---------------------------------------------------------------
+..  _start:
 
-.. ---------------------------------------------------------------
-   More information about creating an extension manual:
-   https://docs.typo3.org/m/typo3/docs-how-to-document/master/en-us/WritingDocForExtension/CreateWithExtensionBuilder.html
-   ---------------------------------------------------------------
-
-.. ---------------------------------------------------------------
-   comments start with 2 dots and a blank
-   they can continue on the next line
-   ---------------------------------------------------------------
-
-.. ---------------------------------------------------------------
-   every .rst file should include Includes.txt
-   use correct path!
-   ---------------------------------------------------------------
-
-.. include:: Includes.txt
-
-.. ---------------------------------------------------------------
-   Every manual should have a start label for cross-referencing to
-   start page. Do not remove this!
-   ---------------------------------------------------------------
-
-.. _start:
-
-.. ---------------------------------------------------------------
-   This is the doctitle
-   ---------------------------------------------------------------
-
-=============================================================
+=======
 Laposta
-=============================================================
+=======
 
-:Extension Key:
+:Extension key:
     laposta
+
+:Package name:
+    proudnerds/laposta
 
 :Version:
     |release|
@@ -44,50 +16,53 @@ Laposta
 :Language:
     en
 
-:Copyright:
-    2020
-
 :Author:
-    Jacco van der Post
-
-:Email:
-    support@proudnerds.com
+    Jacco van der Post & Proud Nerds
 
 :License:
-   This extension documentation is published under the `CC BY-NC-SA 4.0 <https://creativecommons.org/licenses/by-nc-sa/4.0/>`__ (Creative Commons) license
+    This document is published under the
+    `Open Publication License <https://www.opencontent.org/openpub/>`__.
 
-Import and select in page properties the uniform names of products and services of The Dutch government.
+:Rendered:
+    |today|
 
-**TYPO3**
+----
 
-   The content of this document is related to TYPO3 CMS,
-   a GNU/GPL CMS/Framework available from `typo3.org
-   <https://typo3.org/>`_ .
+This extension lets visitors subscribe to and unsubscribe from one or more
+`Laposta <https://laposta.nl/>`__ newsletters from the TYPO3 frontend.
 
-**Community Documentation:**
+----
 
-    This documentation is community documentation for the TYPO3 extension Uniform product names
+..  card-grid::
+    :columns: 1
+    :columns-md: 2
+    :gap: 4
+    :class: pb-4
+    :card-height: 100
 
-    It is maintained as part of this third party extension.
+    ..  card:: :ref:`Introduction <introduction>`
 
-    If you find an error or something is missing, please:
-    `Report a Problem <https://github.com/TYPO3-Documentation/TYPO3CMS-Example-ExtensionManual/issues/new>`__
+        What the extension does and who it is for.
 
-**Sitemap:**
+    ..  card:: :ref:`Installation <installation>`
 
-   :ref:`sitemap`
+        Install the extension, configure the API key and create newsletter records.
 
-.. ---------------------------------------------------------------
-   This generates the menu
-   https://docs.typo3.org/m/typo3/docs-how-to-document/master/en-us/WritingReST/MenuHierarchy.html
-   ---------------------------------------------------------------
+    ..  card:: :ref:`Known problems <known-problems>`
 
-.. toctree::
-   :maxdepth: 3
-   :hidden:
+        Current limitations and where to report issues.
 
-   Introduction/Index
-   Installation/Index
-   KnownProblems/Index
-   ChangeLog/Index
-   Sitemap
+    ..  card:: :ref:`ChangeLog <changelog>`
+
+        Release history.
+
+..  toctree::
+    :maxdepth: 2
+    :titlesonly:
+    :hidden:
+
+    Introduction/Index
+    Installation/Index
+    KnownProblems/Index
+    ChangeLog/Index
+    Sitemap
