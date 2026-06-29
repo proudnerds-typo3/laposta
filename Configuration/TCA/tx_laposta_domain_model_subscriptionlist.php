@@ -1,4 +1,5 @@
 <?php
+
 return [
     'ctrl' => [
         'title' => 'LLL:EXT:laposta/Resources/Private/Language/locallang_db.xlf:tx_laposta_domain_model_subscriptionlist',
@@ -17,7 +18,7 @@ return [
         ],
         'searchFields' => 'list_label,list_id, double_opt_in, info',
         'typeicon_classes' => [
-            'default' => 'laposta-plugin-subscribe'
+            'default' => 'laposta-plugin-subscribe',
         ],
     ],
     'types' => [
@@ -67,8 +68,8 @@ return [
                 'items' => [
                     [
                         'label' => '',
-                        'invertStateDisplay' => true
-                    ]
+                        'invertStateDisplay' => true,
+                    ],
                 ],
             ],
         ],
@@ -79,8 +80,8 @@ return [
                 'type' => 'datetime',
                 'default' => 0,
                 'behaviour' => [
-                    'allowLanguageSynchronization' => true
-                ]
+                    'allowLanguageSynchronization' => true,
+                ],
             ],
         ],
         'endtime' => [
@@ -90,11 +91,11 @@ return [
                 'type' => 'datetime',
                 'default' => 0,
                 'range' => [
-                    'upper' => mktime(0, 0, 0, 1, 1, 2038)
+                    'upper' => mktime(0, 0, 0, 1, 1, 2038),
                 ],
                 'behaviour' => [
-                    'allowLanguageSynchronization' => true
-                ]
+                    'allowLanguageSynchronization' => true,
+                ],
             ],
         ],
 
@@ -105,7 +106,7 @@ return [
                 'type' => 'input',
                 'size' => 30,
                 'eval' => 'trim',
-                'required' => true
+                'required' => true,
             ],
         ],
         'list_id' => [
@@ -115,7 +116,7 @@ return [
                 'type' => 'input',
                 'size' => 30,
                 'eval' => 'trim',
-                'required' => true
+                'required' => true,
             ],
         ],
         'double_opt_in' => [
@@ -124,9 +125,7 @@ return [
             'config' => [
                 'type' => 'check',
                 'items' => [
-                    [
-                        'label' => '', ''
-                    ]
+                    ['label' => ''],
                 ],
             ],
         ],
@@ -137,8 +136,8 @@ return [
                 'type' => 'text',
                 'cols' => 40,
                 'rows' => 6,
-                'eval' => 'trim'
-            ]
+                'eval' => 'trim',
+            ],
         ],
     ],
 ];
