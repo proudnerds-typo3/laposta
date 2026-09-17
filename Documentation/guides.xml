@@ -9,12 +9,12 @@
                project-repository="https://github.com/proudnerds-typo3/laposta"
                project-issues="https://github.com/proudnerds-typo3/laposta/issues"
                edit-on-github="proudnerds-typo3/laposta"
-               edit-on-github-branch="12.5"
-               typo3-core-preferred="12.4"
+               edit-on-github-branch="master"
+               typo3-core-preferred="14.3"
                interlink-shortcode="proudnerds/laposta"
     />
-    <project title="Laposta" release="12.5.0" version="12.5"
+    <project title="Laposta" release="14.3.0" version="14.3"
              copyright="since 2020 by Proud Nerds"/>
-    <inventory id="t3coreapi" url="https://docs.typo3.org/m/typo3/reference-coreapi/12.4/en-us/"/>
-    <inventory id="t3tsref" url="https://docs.typo3.org/m/typo3/reference-typoscript/12.4/en-us/"/>
+    <inventory id="t3coreapi" url="https://docs.typo3.org/m/typo3/reference-coreapi/14.3/en-us/"/>
+    <inventory id="t3tsref" url="https://docs.typo3.org/m/typo3/reference-typoscript/14.3/en-us/"/>
 </guides>

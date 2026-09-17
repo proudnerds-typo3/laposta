@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Proudnerds\Laposta\Domain\Model;
 
-use TYPO3\CMS\Extbase\Annotation\Validate;
-
 /**
  * Subscriptionlist
  */
@@ -14,13 +12,13 @@ class Subscriptionlist extends \TYPO3\CMS\Extbase\DomainObject\AbstractEntity
     /**
      * The label of the list to subscribe to
      */
-    #[Validate(['validator' => 'NotEmpty'])]
+    #[\TYPO3\CMS\Extbase\Attribute\Validate(validator: 'NotEmpty')]
     protected string $listLabel = '';
 
     /**
      * The Laposta id of the list to subscribe to
      */
-    #[Validate(['validator' => 'NotEmpty'])]
+    #[\TYPO3\CMS\Extbase\Attribute\Validate(validator: 'NotEmpty')]
     protected string $listId = '';
 
     /**

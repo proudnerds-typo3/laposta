@@ -7,6 +7,10 @@ Installation
 Target group: **Administrators / Integrators**
 
 #.  Install the extension: ``composer require proudnerds/laposta``.
+#.  Coming from 12.x: run the upgrade wizard *Migrate "Proudnerds Laposta" plugins to
+    content elements* in the Install Tool. It converts the existing content elements
+    from ``CType=list`` to their own content types and updates the backend user group
+    permissions.
 #.  Include the TypoScript template.
 #.  Add the extension to the relevant backend user groups.
 #.  Add the Laposta ``apiKey`` in the constants settings.

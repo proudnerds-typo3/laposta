@@ -7,21 +7,34 @@ use TYPO3\CMS\Extbase\Utility\ExtensionUtility;
 
 defined('TYPO3') || die('Access denied.');
 
-ExtensionUtility::registerPlugin('Laposta', 'Subscribe', 'Laposta subscribe');
-ExtensionUtility::registerPlugin('Laposta', 'Unsubscribe', 'Laposta unsubscribe');
+$pluginSignatures = [
+    ExtensionUtility::registerPlugin(
+        'Laposta',
+        'Subscribe',
+        'LLL:EXT:laposta/Resources/Private/Language/locallang_db.xlf:tx_laposta_subscribe.name',
+        'laposta-plugin-subscribe',
+        'plugins',
+        'LLL:EXT:laposta/Resources/Private/Language/locallang_db.xlf:tx_laposta_subscribe.description',
+        'FILE:EXT:laposta/Configuration/Flexforms/Flexform.xml'
+    ),
+    ExtensionUtility::registerPlugin(
+        'Laposta',
+        'Unsubscribe',
+        'LLL:EXT:laposta/Resources/Private/Language/locallang_db.xlf:tx_laposta_unsubscribe.name',
+        'laposta-plugin-subscribe',
+        'plugins',
+        'LLL:EXT:laposta/Resources/Private/Language/locallang_db.xlf:tx_laposta_unsubscribe.description',
+        'FILE:EXT:laposta/Configuration/Flexforms/Flexform.xml'
+    ),
+];
 
-// Uncomment to set the storage PID via TypoScript instead:
-// $GLOBALS['TCA']['tt_content']['types']['list']['subtypes_excludelist']['laposta_subscribe'] = 'recursive,pages';
-
-$GLOBALS['TCA']['tt_content']['types']['list']['subtypes_addlist']['laposta_subscribe'] = 'pi_flexform';
-$GLOBALS['TCA']['tt_content']['types']['list']['subtypes_addlist']['laposta_unsubscribe'] = 'pi_flexform';
-
-ExtensionManagementUtility::addPiFlexFormValue(
-    'laposta_subscribe',
-    'FILE:EXT:laposta/Configuration/Flexforms/Flexform.xml'
-);
-
-ExtensionManagementUtility::addPiFlexFormValue(
-    'laposta_unsubscribe',
-    'FILE:EXT:laposta/Configuration/Flexforms/Flexform.xml'
-);
+// The list records are looked up by uid through the repository, so the editor needs the record
+// storage page; a plugin CType inherits its showitem from "header", which has neither field.
+foreach ($pluginSignatures as $pluginSignature) {
+    ExtensionManagementUtility::addToAllTCAtypes(
+        'tt_content',
+        'pages, recursive',
+        $pluginSignature,
+        'after:pi_flexform'
+    );
+}

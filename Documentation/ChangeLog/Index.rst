@@ -16,3 +16,9 @@ ChangeLog
     required-field hint; focus moves to the message after submitting; code-quality
     baseline (``declare(strict_types=1)``, typed properties). Note: the frontend
     templates changed, so re-check any template overrides.
+*   14.3.0 Release for TYPO3 14.3:
+    both plugins are now content types of their own, so run the upgrade wizard
+    *Migrate "Proudnerds Laposta" plugins to content elements* after updating; submitted
+    newsletter ids are validated against the ids configured on the plugin; the honey pot
+    value is no longer logged. Note: the frontend templates changed, so re-check any
+    template overrides.

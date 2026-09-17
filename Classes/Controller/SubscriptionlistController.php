@@ -14,7 +14,6 @@ use TYPO3\CMS\Core\Http\NormalizedParams;
 use TYPO3\CMS\Core\Http\RequestFactory;
 use TYPO3\CMS\Core\Log\LogLevel;
 use TYPO3\CMS\Core\Type\ContextualFeedbackSeverity;
-use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
 use TYPO3\CMS\Extbase\Utility\LocalizationUtility;
 
@@ -110,16 +109,16 @@ class SubscriptionlistController extends ActionController implements LoggerAware
         }
 
         $crudAction = htmlspecialchars($arguments['crudAction']);
-        $ip = GeneralUtility::getIndpEnv('REMOTE_ADDR');
 
         /** @var NormalizedParams $normalizedParams */
         $normalizedParams = $this->request->getAttribute('normalizedParams');
         $sourceUrl = $normalizedParams->getRequestUrl();
+        $ip = $normalizedParams->getRemoteAddress();
 
-        // Honey trap field not field in?
-        if (!isset($arguments['laposta.important']) || !$arguments['laposta.important']) {
+        $honeypot = $arguments['laposta.important'] ?? null;
+
+        if ($honeypot === '') {
             $customFieldLabel = htmlspecialchars($this->settings['customFieldNameStartsWith']);
-            $ip = GeneralUtility::getIndpEnv('REMOTE_ADDR');
 
             // Get all the custom fields, these fields the customer can create in Laposta administration
             // You can add any fields in the template, just put customFieldLabel before each fieldname
@@ -141,13 +140,18 @@ class SubscriptionlistController extends ActionController implements LoggerAware
 
             if (isset($arguments['email'])) {
                 $email = htmlspecialchars($arguments['email']);
-                $numberOfLists = (int)($arguments['numberOfLists']);
+                $configuredListUids = array_values(array_unique(array_filter(
+                    array_map(
+                        static fn(string $listUid): int => (int)trim($listUid),
+                        explode(',', (string)($this->settings['lists'] ?? ''))
+                    )
+                )));
 
-                for ($subscriptionNumber = 1; $subscriptionNumber <= $numberOfLists; $subscriptionNumber++) {
-                    $listItem = 'list_' . $subscriptionNumber;
+                foreach ($configuredListUids as $index => $configuredListUid) {
+                    $submittedListUid = $arguments['list_' . ($index + 1)] ?? null;
 
-                    if ($arguments[$listItem]) {
-                        $listUids[] = htmlspecialchars($arguments[$listItem]);
+                    if (is_scalar($submittedListUid) && (int)$submittedListUid === $configuredListUid) {
+                        $listUids[] = $configuredListUid;
                     }
                 }
 
@@ -310,7 +314,7 @@ class SubscriptionlistController extends ActionController implements LoggerAware
             if (((int)($this->settings['logHoneyTrap'])) === 1) {
                 $this->writeLog(
                     LogLevel::INFO,
-                    'Spam attempt? Honey pot field filled with: ' . htmlspecialchars($arguments['laposta.important']) . '. User ip: ' . $ip . ', source url: ' . $sourceUrl
+                    'Spam attempt detected. User ip: ' . $ip . ', source url: ' . $sourceUrl
                 );
             }
         }

@@ -11,13 +11,17 @@ Dutch newsletter service.
 - Custom fields per newsletter (configured in Laposta)
 - Accessible forms and notifications (WCAG 2.2 AA): grouped messages with a clear
   structure, `fieldset`/`legend`, programmatic labels and focus handling
+- Honey pot field against spam, with optional logging
 - Fully translatable; English and Dutch are included
 
 ## Requirements
 
-- TYPO3 12.4 LTS
-- PHP 8.1 or higher
+- TYPO3 14.3
+- PHP 8.2 or higher
 - A Laposta account and API key
+
+For TYPO3 12.4 use the [12.5](https://github.com/proudnerds-typo3/laposta/tree/12.5)
+release line.
 
 ## Installation
 
@@ -26,6 +30,11 @@ composer require proudnerds/laposta
 ```
 
 Then include the static TypoScript template ("Laposta") on your site.
+
+Upgrading from 12.x: the plugins are now content types instead of `CType=list`
+plugins. Run the *Migrate Proudnerds Laposta plugins to content elements* upgrade
+wizard in the Install Tool to convert existing content elements and backend user
+group permissions.
 
 ## Configuration
 
@@ -43,7 +52,7 @@ template by prefixing the field name with `customField.`.
 ## Documentation
 
 Full documentation is available in the [`Documentation/`](Documentation/) folder
-and rendered on [docs.typo3.org](https://docs.typo3.org/p/proudnerds/laposta/12.4/en-us/).
+and rendered on [docs.typo3.org](https://docs.typo3.org/p/proudnerds/laposta/14.3/en-us/).
 
 ## License
 
