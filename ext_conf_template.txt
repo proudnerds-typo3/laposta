@@ -3,3 +3,9 @@ altchaCost = 10000
 
 # cat=ALTCHA; type=int+; label=ALTCHA lifetime: seconds a challenge stays valid after the widget fetched it (default 1800).
 altchaLifetime = 1800
+
+# cat=Rate limit; type=int+; label=Rate limit: maximum submissions per form from one IP address within the interval below. 0 disables the limit (default 0).
+rateLimit = 0
+
+# cat=Rate limit; type=string; label=Rate limit interval: a relative time such as "1 hour" or "30 minutes" (default 1 hour).
+rateLimitInterval = 1 hour

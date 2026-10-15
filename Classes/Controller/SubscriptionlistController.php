@@ -7,6 +7,7 @@ namespace Proudnerds\Laposta\Controller;
 use Proudnerds\Laposta\Domain\Model\Subscriptionlist;
 use Proudnerds\Laposta\Domain\Repository\SubscriptionlistRepository;
 use Proudnerds\Laposta\Service\AltchaService;
+use Proudnerds\Laposta\Service\SubmissionRateLimiter;
 use Proudnerds\Laposta\ViewHelpers\MessageBlocksViewHelper;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Log\LoggerAwareInterface;
@@ -42,14 +43,18 @@ class SubscriptionlistController extends ActionController implements LoggerAware
 
     protected AltchaService $altchaService;
 
+    protected SubmissionRateLimiter $submissionRateLimiter;
+
     public function __construct(
         SubscriptionlistRepository $subscriptionlistRepository,
         RequestFactory $requestFactory,
-        AltchaService $altchaService
+        AltchaService $altchaService,
+        SubmissionRateLimiter $submissionRateLimiter
     ) {
         $this->subscriptionlistRepository = $subscriptionlistRepository;
         $this->requestFactory = $requestFactory;
         $this->altchaService = $altchaService;
+        $this->submissionRateLimiter = $submissionRateLimiter;
     }
 
     /**
@@ -126,6 +131,16 @@ class SubscriptionlistController extends ActionController implements LoggerAware
             $this->writeLog(LogLevel::INFO, 'ALTCHA verification failed. User ip: ' . $ip . ', source url: ' . $sourceUrl);
             $this->addParagraphedFlashMessage(
                 [LocalizationUtility::translate('tx_laposta.warning.altcha', 'laposta') ?? ''],
+                ContextualFeedbackSeverity::WARNING
+            );
+
+            return $this->redirectToForm($crudAction);
+        }
+
+        if ($honeypot === '' && !$this->submissionRateLimiter->consume($this->request, $crudAction === 'delete' ? 'unsubscribe' : 'subscribe')) {
+            $this->writeLog(LogLevel::INFO, 'Rate limit exceeded. User ip: ' . $ip . ', source url: ' . $sourceUrl);
+            $this->addParagraphedFlashMessage(
+                [LocalizationUtility::translate('tx_laposta.warning.rateLimit', 'laposta') ?? ''],
                 ContextualFeedbackSeverity::WARNING
             );
 

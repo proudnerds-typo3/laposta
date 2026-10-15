@@ -26,4 +26,6 @@ ChangeLog
     optional self-hosted ALTCHA check on both forms against bots that pass the honey
     pot, enabled with ``plugin.tx_laposta.settings.altcha.enable = 1``; adds the
     Composer dependency ``altcha-org/altcha`` and the cache ``laposta_altcha`` (run the
-    database compare). See :ref:`spam-protection`.
+    database compare). Optional limit on submissions per IP address and form, set with
+    ``rateLimit`` in the extension configuration (off by default). See
+    :ref:`spam-protection`.

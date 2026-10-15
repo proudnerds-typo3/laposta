@@ -50,7 +50,7 @@ This extension lets visitors subscribe to and unsubscribe from one or more
 
     ..  card:: :ref:`Spam protection <spam-protection>`
 
-        Honey pot and the optional self-hosted ALTCHA check.
+        Honey pot, the optional self-hosted ALTCHA check and a rate limit per IP address.
 
     ..  card:: :ref:`Known problems <known-problems>`
 

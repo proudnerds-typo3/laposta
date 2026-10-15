@@ -9,7 +9,8 @@ Target group: **Integrators**
 Both forms carry a honey pot field. Bots that load the form in a real browser and
 leave that field empty get past it; they are typically used for *subscription
 bombing*, where a victim's address is subscribed to as many newsletters as possible.
-For those, the extension can add an `ALTCHA <https://altcha.org>`__ check.
+For those, the extension can add an `ALTCHA <https://altcha.org>`__ check and limit
+the number of submissions per IP address.
 
 ALTCHA
 ======
@@ -64,3 +65,27 @@ Authentication). The widget is operable with the keyboard and has a visible focu
 indicator. Its checkbox is 22 by 22 pixels by default; set
 ``--altcha-checkbox-size: 24px`` to meet 2.5.8 (Target Size) on the checkbox itself.
 Visitors without JavaScript see a notification that JavaScript is required.
+
+Rate limit
+==========
+
+The extension can limit how often each form is sent from one IP address. Only
+submissions that pass the honey pot and the ALTCHA check count; the subscribe and
+unsubscribe forms have separate counters. A submission over the limit is refused
+with a notification before the Laposta API is called, and logged when logging is
+enabled.
+
+The limit is off by default. Set it in the extension configuration:
+
+``rateLimit``
+    Maximum submissions per form from one IP address within the interval. ``0``
+    disables the limit. Default ``0``.
+
+``rateLimitInterval``
+    A relative time such as ``1 hour`` or ``30 minutes``. Default ``1 hour``.
+
+Many visitors can share one IP address, for example in an office, a school or on a
+mobile network, so do not set the limit too low. The counters are kept in the TYPO3
+core cache ``ratelimiter``. Behind a reverse proxy, configure
+``$GLOBALS['TYPO3_CONF_VARS']['SYS']['reverseProxyIP']`` so the visitor's address is
+used instead of the proxy's.
