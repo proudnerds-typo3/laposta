@@ -61,6 +61,12 @@
 			<trans-unit id="tx_laposta.warning.unknownMemberIntro" resname="tx_laposta.warning.unknownMemberIntro">
 				<target>We konden voor %s geen aanmelding vinden voor:</target>
 			</trans-unit>
+			<trans-unit id="tx_laposta.warning.altcha" resname="tx_laposta.warning.altcha">
+				<target>De controle of u geen robot bent is niet gelukt. Vink "Ik ben geen robot" aan en verstuur het formulier opnieuw.</target>
+			</trans-unit>
+			<trans-unit id="tx_laposta.altcha.noscript" resname="tx_laposta.altcha.noscript">
+				<target>Om dit formulier te versturen moet JavaScript aanstaan in uw browser.</target>
+			</trans-unit>
 		</body>
 	</file>
 </xliff>

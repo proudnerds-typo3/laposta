@@ -22,3 +22,8 @@ ChangeLog
     newsletter ids are validated against the ids configured on the plugin; the honey pot
     value is no longer logged. Note: the frontend templates changed, so re-check any
     template overrides.
+*   Unreleased:
+    optional self-hosted ALTCHA check on both forms against bots that pass the honey
+    pot, enabled with ``plugin.tx_laposta.settings.altcha.enable = 1``; adds the
+    Composer dependency ``altcha-org/altcha`` and the cache ``laposta_altcha`` (run the
+    database compare). See :ref:`spam-protection`.

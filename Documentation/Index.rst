@@ -48,6 +48,10 @@ This extension lets visitors subscribe to and unsubscribe from one or more
 
         Install the extension, configure the API key and create newsletter records.
 
+    ..  card:: :ref:`Spam protection <spam-protection>`
+
+        Honey pot and the optional self-hosted ALTCHA check.
+
     ..  card:: :ref:`Known problems <known-problems>`
 
         Current limitations and where to report issues.
@@ -63,6 +67,7 @@ This extension lets visitors subscribe to and unsubscribe from one or more
 
     Introduction/Index
     Installation/Index
+    SpamProtection/Index
     KnownProblems/Index
     ChangeLog/Index
     Sitemap

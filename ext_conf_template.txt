@@ -1,0 +1,5 @@
+# cat=ALTCHA; type=int+; label=ALTCHA cost: PBKDF2 iterations per attempt. Higher is harder for bots and slower for visitors (default 10000, solved in about 0.1 s in a current browser).
+altchaCost = 10000
+
+# cat=ALTCHA; type=int+; label=ALTCHA lifetime: seconds a challenge stays valid after the widget fetched it (default 1800).
+altchaLifetime = 1800

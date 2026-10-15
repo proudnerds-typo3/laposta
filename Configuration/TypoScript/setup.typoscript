@@ -22,6 +22,10 @@ plugin {
 
       # this stores spam attempts in the log
       logHoneyTrap = {$plugin.tx_laposta.settings.logHoneyTrap}
+
+      altcha {
+        enable = {$plugin.tx_laposta.settings.altcha.enable}
+      }
     }
   }
 

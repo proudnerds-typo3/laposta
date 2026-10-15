@@ -37,6 +37,10 @@
                         <f:form.textfield name="email" type="email" class="form-control" id="tx_laposta-email" additionalAttributes="{autocomplete: 'email'}" required="1" />
                     </div>
 
+                    <f:if condition="{settings.altcha.enable}">
+                        <f:render partial="Altcha" />
+                    </f:if>
+
                     <f:form.hidden name="crudAction" value="delete" />
                     <f:form.submit value="{f:translate(key:'tx_laposta.unsubscribe')}" class="btn btn-primary" />
                 </f:then>

@@ -6,6 +6,7 @@ namespace Proudnerds\Laposta\Controller;
 
 use Proudnerds\Laposta\Domain\Model\Subscriptionlist;
 use Proudnerds\Laposta\Domain\Repository\SubscriptionlistRepository;
+use Proudnerds\Laposta\Service\AltchaService;
 use Proudnerds\Laposta\ViewHelpers\MessageBlocksViewHelper;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Log\LoggerAwareInterface;
@@ -39,12 +40,16 @@ class SubscriptionlistController extends ActionController implements LoggerAware
 
     protected RequestFactory $requestFactory;
 
+    protected AltchaService $altchaService;
+
     public function __construct(
         SubscriptionlistRepository $subscriptionlistRepository,
-        RequestFactory $requestFactory
+        RequestFactory $requestFactory,
+        AltchaService $altchaService
     ) {
         $this->subscriptionlistRepository = $subscriptionlistRepository;
         $this->requestFactory = $requestFactory;
+        $this->altchaService = $altchaService;
     }
 
     /**
@@ -116,6 +121,16 @@ class SubscriptionlistController extends ActionController implements LoggerAware
         $ip = $normalizedParams->getRemoteAddress();
 
         $honeypot = $arguments['laposta.important'] ?? null;
+
+        if ($honeypot === '' && $this->isAltchaEnabled() && !$this->altchaService->verify($this->request->getParsedBody()['altcha'] ?? null)) {
+            $this->writeLog(LogLevel::INFO, 'ALTCHA verification failed. User ip: ' . $ip . ', source url: ' . $sourceUrl);
+            $this->addParagraphedFlashMessage(
+                [LocalizationUtility::translate('tx_laposta.warning.altcha', 'laposta') ?? ''],
+                ContextualFeedbackSeverity::WARNING
+            );
+
+            return $this->redirectToForm($crudAction);
+        }
 
         if ($honeypot === '') {
             $customFieldLabel = htmlspecialchars($this->settings['customFieldNameStartsWith']);
@@ -319,11 +334,21 @@ class SubscriptionlistController extends ActionController implements LoggerAware
             }
         }
 
+        return $this->redirectToForm($crudAction);
+    }
+
+    private function redirectToForm(string $crudAction): ResponseInterface
+    {
         if ($crudAction === 'delete') {
             return $this->redirect('unsubscribe', 'Subscriptionlist', 'laposta');
         }
 
         return $this->redirect('subscribe', 'Subscriptionlist', 'laposta');
+    }
+
+    private function isAltchaEnabled(): bool
+    {
+        return (string)($this->settings['altcha']['enable'] ?? '') === '1' && AltchaService::isAvailable();
     }
 
     /**

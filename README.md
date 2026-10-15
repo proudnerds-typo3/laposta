@@ -12,6 +12,8 @@ Dutch newsletter service.
 - Accessible forms and notifications (WCAG 2.2 AA): grouped messages with a clear
   structure, `fieldset`/`legend`, programmatic labels and focus handling
 - Honey pot field against spam, with optional logging
+- Optional self-hosted [ALTCHA](https://altcha.org) check against bots: no puzzle,
+  no cookies, no external service (see the *Spam protection* chapter)
 - Fully translatable; English and Dutch are included
 
 ## Requirements

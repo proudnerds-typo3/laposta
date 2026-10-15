@@ -20,6 +20,11 @@ plugin {
       customFieldNameStartsWith = customField.
       enableLog = 1
       logHoneyTrap = 1
+
+      altcha {
+        # cat=plugin.tx_laposta_subscribe/enable; type=boolean; label=ALTCHA: Protect the forms with a self-hosted ALTCHA proof-of-work check (needs the Composer package altcha-org/altcha)
+        enable = 0
+      }
     }
   }
 }
