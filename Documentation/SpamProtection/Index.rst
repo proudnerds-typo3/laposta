@@ -27,10 +27,24 @@ external service: challenges are created and verified on your own server.
     Install Tool) to create the cache table ``cache_laposta_altcha``.
 #.  Check that ``/laposta/altcha-challenge`` returns JSON and is not cached by a
     reverse proxy (the response carries ``Cache-Control: no-store``).
+#.  If your site package overrides :file:`Subscribe.html` or :file:`Unsubscribe.html`,
+    add ``<f:render partial="Altcha" />`` inside the form, before the submit button,
+    within ``<f:if condition="{settings.altcha.enable}">``. Without it the widget is
+    missing and every submission is refused.
 
 With ALTCHA enabled, a submission without a valid, unused solution is refused with
 a notification, and logged when logging is enabled. Each solved challenge is
 accepted once.
+
+The used challenges are kept in the cache ``laposta_altcha``. With more than one
+web server, all servers must share that cache. The default database backend does;
+to use another shared backend such as Redis, define
+``$GLOBALS['TYPO3_CONF_VARS']['SYS']['caching']['cacheConfigurations']['laposta_altcha']``
+in your own configuration.
+
+The widget follows the language of the page (``<html lang>``) and of the browser.
+English is built in and the Dutch translation is included; other languages fall back
+to English.
 
 Settings in the extension configuration:
 
@@ -50,6 +64,10 @@ Security Policy, allow ``style-src 'unsafe-inline'`` and ``worker-src blob:``.
 
 Styling
 -------
+
+The extension ships no styles of its own. The ``altcha-widget`` element is inline
+without margins, so give it ``display: block`` and a bottom margin to keep it clear
+of the submit button.
 
 The widget declares its defaults as CSS custom properties on ``:root``, for example
 ``--altcha-color-primary``, ``--altcha-border-color`` and ``--altcha-checkbox-size``.

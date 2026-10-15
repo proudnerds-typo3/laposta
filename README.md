@@ -13,8 +13,8 @@ Dutch newsletter service.
   structure, `fieldset`/`legend`, programmatic labels and focus handling
 - Honey pot field against spam, with optional logging
 - Optional self-hosted [ALTCHA](https://altcha.org) check against bots: no puzzle,
-  no cookies, no external service, and an optional limit on submissions per IP address
-  (see the *Spam protection* chapter)
+  no cookies, no external service (see the *Spam protection* chapter)
+- Optional limit on submissions per IP address and form
 - Fully translatable; English and Dutch are included
 
 ## Requirements
@@ -39,6 +39,9 @@ plugins. Run the *Migrate Proudnerds Laposta plugins to content elements* upgrad
 wizard in the Install Tool to convert existing content elements and backend user
 group permissions.
 
+Upgrading from 14.3: run the database compare to create the cache table
+`cache_laposta_altcha`. ALTCHA and the rate limit stay off until you enable them.
+
 ## Configuration
 
 1. Set your Laposta API key in the constants
@@ -55,7 +58,7 @@ template by prefixing the field name with `customField.`.
 ## Documentation
 
 Full documentation is available in the [`Documentation/`](Documentation/) folder
-and rendered on [docs.typo3.org](https://docs.typo3.org/p/proudnerds/laposta/14.3/en-us/).
+and rendered on [docs.typo3.org](https://docs.typo3.org/p/proudnerds/laposta/14.4/en-us/).
 
 ## License
 
