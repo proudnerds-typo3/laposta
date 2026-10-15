@@ -1,0 +1,10 @@
+<html xmlns:f="http://typo3.org/ns/TYPO3/CMS/Fluid/ViewHelpers" data-namespace-typo3-fluid="true">
+<f:asset.script identifier="laposta-altcha" src="EXT:laposta/Resources/Public/JavaScript/Altcha/altcha.min.js" type="module" />
+<f:asset.script identifier="laposta-altcha-nl" src="EXT:laposta/Resources/Public/JavaScript/Altcha/i18n/nl.js" type="module" />
+<altcha-widget challenge="/laposta/altcha-challenge" auto="onfocus"></altcha-widget>
+<noscript>
+    <p class="laposta-noscript">
+        <f:translate key="tx_laposta.altcha.noscript" />
+    </p>
+</noscript>
+</html>

@@ -22,6 +22,7 @@ Target group: **Administrators / Integrators**
     email (required), voornaam and achternaam.
 #.  Add or change custom fields in the template by prefixing the field name with
     ``customField.``.
+#.  Optional: enable the ALTCHA spam check, see :ref:`spam-protection`.
 #.  A log is kept in :file:`var/log/Laposta.log`.
 
 ..  figure:: ../Images/Laposta.png

@@ -45,6 +45,10 @@
                         <f:form.textfield name="customField.achternaam" class="form-control" id="tx_laposta-lastname" additionalAttributes="{autocomplete: 'family-name'}" />
                     </div>
 
+                    <f:if condition="{settings.altcha.enable}">
+                        <f:render partial="Altcha" />
+                    </f:if>
+
                     <f:form.hidden name="crudAction" value="create" />
                     <f:form.submit value="{f:translate(key:'tx_laposta.subscribe')}" class="btn btn-primary" />
                 </f:then>

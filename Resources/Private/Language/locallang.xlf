@@ -61,6 +61,12 @@
 			<trans-unit id="tx_laposta.warning.unknownMemberIntro" resname="tx_laposta.warning.unknownMemberIntro">
 				<source>We could not find a subscription for %s for:</source>
 			</trans-unit>
+			<trans-unit id="tx_laposta.warning.altcha" resname="tx_laposta.warning.altcha">
+				<source>We could not confirm that you are not a robot. Tick "I'm not a robot" and send the form again.</source>
+			</trans-unit>
+			<trans-unit id="tx_laposta.altcha.noscript" resname="tx_laposta.altcha.noscript">
+				<source>JavaScript must be enabled in your browser to send this form.</source>
+			</trans-unit>
 		</body>
 	</file>
 </xliff>
